@@ -5,7 +5,7 @@ const db = mysql.createPool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  port: parseInt(process.env.DB_PORT || '3306'),
+  port: parseInt(process.env.DB_PORT || '4000'),
   
   ssl: process.env.DB_HOST === 'localhost' ? undefined : {
       minVersion: 'TLSv1.2',
@@ -13,8 +13,11 @@ const db = mysql.createPool({
   },
   
   waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
+  connectionLimit: 1,
+  maxIdle: 0,      
+  idleTimeout: 60000, 
+  queueLimit: 0,
+  enableKeepAlive: true,
 });
 
 export default db;
