@@ -5,7 +5,9 @@ import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import FadeInUp from '@/components/utils/FadeInUp';
-import { StaggerContainer, StaggerItem } from '@/components/utils/StaggerContainer';
+
+// Hapus import StaggerContainer karena bikin berat/macet
+// import { StaggerContainer, StaggerItem } from '@/components/utils/StaggerContainer';
 
 export default function KolaborasiClient({ initialGalleryData }) {
   const searchParams = useSearchParams();
@@ -29,6 +31,7 @@ export default function KolaborasiClient({ initialGalleryData }) {
       return path; 
   };
 
+  // --- LOGIKA RENDER KONTEN TEXT (SAMA SEPERTI SEBELUMNYA) ---
   const renderContent = () => {
     return (
       <FadeInUp key={activeTab} className="space-y-8">
@@ -41,7 +44,6 @@ export default function KolaborasiClient({ initialGalleryData }) {
                             <h2 className="text-3xl font-bold text-purple-700 dark:text-purple-400 mb-2">Program Magang & PKL</h2>
                             <p className="text-gray-600 dark:text-gray-300">Panduan lengkap bagi siswa SMK dan Mahasiswa untuk belajar langsung di industri.</p>
                         </div>
-
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-purple-100 dark:border-gray-700">
                                 <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4 flex items-center">
@@ -57,7 +59,6 @@ export default function KolaborasiClient({ initialGalleryData }) {
                                     <li>Bersedia mengikuti tata tertib perusahaan.</li>
                                 </ul>
                             </div>
-
                             <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-purple-100 dark:border-gray-700">
                                 <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4 flex items-center">
                                     <i className="fas fa-file-alt text-purple-600 mr-2"></i> Dokumen Persyaratan
@@ -70,7 +71,6 @@ export default function KolaborasiClient({ initialGalleryData }) {
                                 </ul>
                             </div>
                         </div>
-
                         <div className="bg-purple-50 dark:bg-gray-800/50 p-6 rounded-xl border border-purple-200 dark:border-purple-900 mt-8">
                             <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4">📢 Alur Pengajuan</h3>
                             <div className="space-y-4 text-sm text-gray-700 dark:text-gray-300">
@@ -92,7 +92,6 @@ export default function KolaborasiClient({ initialGalleryData }) {
                                 </motion.a>
                             </div>
                         </div>
-
                         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl border-l-4 border-yellow-500 shadow-sm mt-8">
                             <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-2">⚙️ Mekanisme Kerja</h3>
                             <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
@@ -113,7 +112,6 @@ export default function KolaborasiClient({ initialGalleryData }) {
                             <h2 className="text-3xl font-bold text-blue-700 dark:text-blue-400 mb-2">Kolaborasi Penelitian</h2>
                             <p className="text-gray-600 dark:text-gray-300">Wadah bagi akademisi untuk melakukan riset berbasis masalah nyata pertanian.</p>
                         </div>
-
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-blue-100 dark:border-gray-700">
                                 <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4 flex items-center">
@@ -127,7 +125,6 @@ export default function KolaborasiClient({ initialGalleryData }) {
                                     <li>Jika diterima, pemohon akan dihubungi untuk koordinasi teknis.</li>
                                 </ul>
                             </div>
-
                             <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-blue-100 dark:border-gray-700">
                                 <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4 flex items-center">
                                     <i className="fas fa-folder-open text-blue-600 mr-2"></i> Dokumen Persyaratan
@@ -139,7 +136,6 @@ export default function KolaborasiClient({ initialGalleryData }) {
                                 </ul>
                             </div>
                         </div>
-
                         <div className="bg-red-50 dark:bg-red-900/20 p-6 rounded-xl border border-red-100 dark:border-red-800 mt-8">
                             <h3 className="text-lg font-bold text-red-700 dark:text-red-400 mb-3 flex items-center">
                                 <i className="fas fa-exclamation-triangle mr-2"></i> Ketentuan Persetujuan
@@ -149,7 +145,6 @@ export default function KolaborasiClient({ initialGalleryData }) {
                                 <li>Penelitian akan <strong>ditolak</strong> jika data yang diminta mengandung informasi pribadi/rahasia.</li>
                             </ul>
                         </div>
-
                         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
                             <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="mailto:tanisolutionindonesia@gmail.com" className="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition">
                                 <i className="far fa-envelope mr-2"></i> Ajukan Penelitian
@@ -168,7 +163,6 @@ export default function KolaborasiClient({ initialGalleryData }) {
                             <h2 className="text-3xl font-bold text-green-700 dark:text-green-400 mb-2">Kunjungan Industri</h2>
                             <p className="text-gray-600 dark:text-gray-300">Prosedur resmi untuk sekolah, universitas, atau instansi yang ingin melakukan studi banding.</p>
                         </div>
-
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-green-100 dark:border-gray-700">
                                 <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4 flex items-center">
@@ -180,7 +174,6 @@ export default function KolaborasiClient({ initialGalleryData }) {
                                     <li className="flex items-center"><i className="fas fa-dot-circle text-xs text-green-400 mr-2"></i> Wajib menjaga kebersihan.</li>
                                 </ul>
                             </div>
-
                             <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-green-100 dark:border-gray-700">
                                 <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4 flex items-center">
                                     <i className="fas fa-clipboard-list text-green-600 mr-2"></i> Dokumen Pengajuan
@@ -192,7 +185,6 @@ export default function KolaborasiClient({ initialGalleryData }) {
                                 </ul>
                             </div>
                         </div>
-
                         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm mt-8">
                             <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4">📋 Tata Cara & Persetujuan</h3>
                             <div className="space-y-3 text-sm text-gray-600 dark:text-gray-300">
@@ -227,7 +219,6 @@ export default function KolaborasiClient({ initialGalleryData }) {
 
   return (
     <>
-      {/* Header */}
       <header className="pt-24 pb-12 bg-secondary text-white relative overflow-hidden">
         <motion.div 
             animate={{ scale: [1, 1.2, 1], rotate: [0, -45, 0] }}
@@ -245,7 +236,6 @@ export default function KolaborasiClient({ initialGalleryData }) {
         </div>
       </header>
 
-      {/* Main Section */}
       <section className="py-12 bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row gap-8">
@@ -286,11 +276,9 @@ export default function KolaborasiClient({ initialGalleryData }) {
 
                 {/* --- CONTENT AREA (KANAN) --- */}
                 <div className="w-full md:w-3/4 space-y-12">
-                    
-                    {/* 1. RENDER KONTEN TEKS PANDUAN */}
                     {renderContent()}
 
-                    {/* 2. SECTION DOKUMENTASI & GALERI */}
+                    {/* 2. SECTION DOKUMENTASI & GALERI (YANG DIPERBAIKI) */}
                     <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden p-8">
                         <div className="flex items-center justify-between mb-6">
                             <h3 className="text-xl font-bold text-secondary dark:text-white">
@@ -301,44 +289,42 @@ export default function KolaborasiClient({ initialGalleryData }) {
                         </div>
 
                         {filteredGallery.length > 0 ? (
-                            // STAGGER CONTAINER UNTUK GRID GALERI
-                            <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                {filteredGallery.map((item) => (
-                                    <StaggerItem 
+                            // --- GRID YANG SUDAH DIPERBAIKI (TANPA STAGGER) ---
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                {filteredGallery.map((item, index) => (
+                                    <motion.div 
                                         key={item.id} 
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.4, delay: index * 0.1 }} // Animasi simpel per item
                                         className="group relative overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-900 shadow-sm border border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-md transition"
+                                        onClick={() => setSelectedGalleryItem(item)}
                                     >
-                                        <div onClick={() => setSelectedGalleryItem(item)}> 
-                                            <div className="aspect-w-4 aspect-h-3 h-48 overflow-hidden relative">
-                                                <motion.div 
-                                                    whileHover={{ scale: 1.1 }}
-                                                    transition={{ duration: 0.5 }}
-                                                    className="w-full h-full"
-                                                >
-                                                    <Image 
-                                                        src={getImageUrl(item.image)} 
-                                                        alt={item.title} 
-                                                        fill
-                                                        className="object-cover" 
-                                                    />
-                                                </motion.div>
-                                                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition flex items-center justify-center">
-                                                    <i className="fas fa-eye text-white opacity-0 group-hover:opacity-100 text-3xl transition"></i>
-                                                </div>
+                                        <div className="aspect-w-4 aspect-h-3 h-48 overflow-hidden relative">
+                                            <div className="w-full h-full relative">
+                                                <Image 
+                                                    src={getImageUrl(item.image)} 
+                                                    alt={item.title} 
+                                                    fill
+                                                    className="object-cover transform group-hover:scale-110 transition duration-500" 
+                                                />
                                             </div>
-                                            <div className="p-4 bg-white dark:bg-gray-800">
-                                                {activeTab === 'kunjungan' && item.extra_1 && (
-                                                    <span className="inline-block px-2 py-1 bg-blue-100 text-blue-800 text-[10px] font-bold rounded mb-2">
-                                                        {item.extra_1}
-                                                    </span>
-                                                )}
-                                                <h4 className="text-sm font-bold text-secondary dark:text-white line-clamp-1">{item.title}</h4>
-                                                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-1">{item.caption}</p>
+                                            <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition flex items-center justify-center">
+                                                <i className="fas fa-eye text-white opacity-0 group-hover:opacity-100 text-3xl transition"></i>
                                             </div>
                                         </div>
-                                    </StaggerItem>
+                                        <div className="p-4 bg-white dark:bg-gray-800">
+                                            {activeTab === 'kunjungan' && item.extra_1 && (
+                                                <span className="inline-block px-2 py-1 bg-blue-100 text-blue-800 text-[10px] font-bold rounded mb-2">
+                                                    {item.extra_1}
+                                                </span>
+                                            )}
+                                            <h4 className="text-sm font-bold text-secondary dark:text-white line-clamp-1">{item.title}</h4>
+                                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-1">{item.caption}</p>
+                                        </div>
+                                    </motion.div>
                                 ))}
-                            </StaggerContainer>
+                            </div>
                         ) : (
                             <p className="text-gray-500 dark:text-gray-400 italic text-center py-4">Belum ada dokumentasi untuk program ini.</p>
                         )}
@@ -349,7 +335,7 @@ export default function KolaborasiClient({ initialGalleryData }) {
         </div>
       </section>
 
-      {/* --- MODAL DETAIL DOKUMENTASI --- */}
+      {/* --- MODAL DETAIL DOKUMENTASI (TETAP SAMA) --- */}
       <AnimatePresence>
         {selectedGalleryItem && (
             <motion.div 
