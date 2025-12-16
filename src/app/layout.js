@@ -4,8 +4,13 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'Tani Solution Indonesia',
-  description: 'Solusi inovasi pertanian untuk masa depan Indonesia.',
+  title: 'Tani Solution Indonesia | Inovasi Alat Pertanian Modern',
+  description: 'Pusat solusi teknologi pertanian (Agritech), magang industri, dan kolaborasi riset di Indonesia. Produsen alat pemupukan modern.',
+  keywords: ['pertanian', 'agritech', 'magang smk', 'alat pertanian', 'tani solution', 'pupuk otomatis'],
+  openGraph: {
+    title: 'Tani Solution Indonesia',
+    description: 'Solusi Teknologi Pertanian Masa Depan.',
+  },
   icons: {
     icon: '/tani.webp',
   },

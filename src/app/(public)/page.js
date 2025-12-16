@@ -8,8 +8,13 @@ import pool from '@/lib/db';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'Home | Tani Solution Indonesia',
-  description: 'Start-up Agritech Manufaktur yang berfokus pada inovasi alat semi mekanisasi pertanian modern.',
+  title: 'Tani Solution Indonesia | Inovasi Alat Pertanian Modern',
+  description: 'Pusat solusi teknologi pertanian (Agritech), magang industri, dan kolaborasi riset di Indonesia. Produsen alat pemupukan modern.',
+  keywords: ['pertanian', 'agritech', 'magang smk', 'alat pertanian', 'tani solution', 'pupuk otomatis'], // Tambahkan ini
+  openGraph: {
+    title: 'Tani Solution Indonesia',
+    description: 'Solusi Teknologi Pertanian Masa Depan.',
+  },
 };
 
 async function getPartners() {
