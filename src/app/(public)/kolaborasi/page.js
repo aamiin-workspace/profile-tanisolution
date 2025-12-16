@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import pool from '@/lib/db';
 import KolaborasiClient from '@/components/views/KolaborasiClient';
 
@@ -8,20 +9,33 @@ export const metadata = {
 
 async function getGalleryData() {
   try {
-    const [rows] = await pool.query('SELECT * FROM collaborations ORDER BY created_at DESC');
+    const [rows] = await pool.query('SELECT * FROM collaborations ORDER BY date DESC, created_at DESC');
     
     return rows.map(item => ({
         ...item,
-        created_at: item.created_at.toISOString(),
+        created_at: item.created_at ? item.created_at.toISOString() : null,
         date: item.date ? item.date.toISOString() : null
     }));
   } catch (error) {
     console.error("Database Error:", error);
-    return [];
+    return []; 
   }
+}
+
+function SearchLoading() {
+    return (
+        <div className="w-full h-96 flex items-center justify-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-600"></div>
+        </div>
+    );
 }
 
 export default async function KolaborasiPage() {
   const galleryData = await getGalleryData();
-  return <KolaborasiClient initialGalleryData={galleryData} />;
+
+  return (
+    <Suspense fallback={<SearchLoading />}>
+        <KolaborasiClient initialGalleryData={galleryData} />
+    </Suspense>
+  );
 }
