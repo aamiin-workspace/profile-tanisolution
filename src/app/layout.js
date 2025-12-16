@@ -23,7 +23,7 @@ export const metadata = {
     icon: "/tani.webp",
   },
   verification: {
-    google: "hkjhleoU2Q4mV7ZaBL_GuL2oVmHXiXm7qNJjMQ8d3YE",
+    google: "AbMglGtRoxx7re5Twk4243vmKgo0gOynz8lOgQso4Ug",
   },
 };
 
