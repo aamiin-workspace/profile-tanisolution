@@ -6,20 +6,10 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import FadeInUp from '@/components/utils/FadeInUp';
 
-// --- Komponen Stagger (Animasi Berurutan) ---
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
-
-const itemAnim = {
+// Kita pakai animasi simpel ini saja biar grid tidak macet/kosong
+const simpleFade = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 }
+  show: { opacity: 1, y: 0, transition: { duration: 0.4 } }
 };
 
 export default function BeritaClient({ initialNews }) {
@@ -27,7 +17,6 @@ export default function BeritaClient({ initialNews }) {
   
   const allNews = initialNews || [];
 
-  // Logic Filter
   const filteredNews = filter === 'Semua' 
     ? allNews 
     : allNews.filter(item => item.category === filter);
@@ -45,28 +34,26 @@ export default function BeritaClient({ initialNews }) {
 
   return (
     <>
-      {/* --- HEADER SECTION (BARU) --- */}
-      {/* pt-32 memastikan konten turun ke bawah navbar */}
-      <header className="pt-32 pb-12 bg-green-900 text-white relative overflow-hidden">
-        {/* Hiasan Background (Blob) */}
-        <motion.div 
-            animate={{ scale: [1, 1.2, 1], rotate: [0, -45, 0] }}
-            transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-            className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-green-500 opacity-20 blur-3xl"
-        ></motion.div>
-
+      {/* --- HEADER SECTION (SOLUSI NAVBAR TERPOTONG) --- */}
+      {/* pt-32 (128px) memberi ruang agar judul tidak ketutupan navbar */}
+      <header className="pt-32 pb-10 bg-white dark:bg-gray-900 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
             <FadeInUp>
-                <h1 className="text-3xl md:text-5xl font-bold mb-4">Berita & <span className="text-green-400">Artikel</span></h1>
+                <h1 className="text-3xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
+                    Berita & <span className="text-green-600">Artikel</span>
+                </h1>
+                <div className="h-1 w-24 bg-green-500 mx-auto rounded-full mb-4"></div>
             </FadeInUp>
             <FadeInUp delay={0.1}>
-                <p className="text-gray-300 text-lg">Update terkini seputar teknologi & kegiatan Tani Solution.</p>
+                <p className="text-gray-500 dark:text-gray-400 text-lg max-w-2xl mx-auto">
+                    Ikuti perkembangan terbaru kami dalam memajukan pertanian Indonesia melalui teknologi dan kolaborasi.
+                </p>
             </FadeInUp>
         </div>
       </header>
 
       {/* --- MAIN CONTENT --- */}
-      <section className="py-12 bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-300">
+      <section className="pb-20 bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-300">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               
               {/* --- Filter Buttons --- */}
@@ -96,7 +83,6 @@ export default function BeritaClient({ initialNews }) {
                       <p className="text-gray-500 dark:text-gray-400">Belum ada berita tersimpan.</p>
                   </div>
               ) : !featuredNews ? (
-                  // Jika hasil filter kosong
                    <div className="text-center py-20 text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
                       <i className="far fa-newspaper text-3xl text-gray-400 mb-4"></i>
                       <h3 className="text-lg font-bold text-gray-700 dark:text-gray-200">Tidak ada berita kategori "{filter}"</h3>
@@ -141,17 +127,18 @@ export default function BeritaClient({ initialNews }) {
                           </div>
                       </FadeInUp>
 
-                      {/* --- Berita Lainnya (Grid) --- */}
+                      {/* --- Berita Lainnya (Grid Stabil Tanpa Stagger) --- */}
                       {otherNews.length > 0 && (
-                          <motion.div 
-                              variants={container}
-                              initial="hidden"
-                              whileInView="show"
-                              viewport={{ once: true }}
-                              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-                          >
-                              {otherNews.map((news) => (
-                                  <motion.div key={news.id} variants={itemAnim} className="h-full">
+                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                              {otherNews.map((news, index) => (
+                                  <motion.div 
+                                    key={news.id} 
+                                    initial="hidden"
+                                    whileInView="show"
+                                    viewport={{ once: true }}
+                                    variants={simpleFade}
+                                    className="h-full"
+                                  >
                                       <div 
                                           className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 flex flex-col group h-full"
                                       >
@@ -185,7 +172,7 @@ export default function BeritaClient({ initialNews }) {
                                       </div>
                                   </motion.div>
                               ))}
-                          </motion.div>
+                          </div>
                       )}
                   </>
               )}
