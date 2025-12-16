@@ -219,7 +219,7 @@ export default function KolaborasiClient({ initialGalleryData }) {
 
   return (
     <>
-      <header className="pt-24 pb-12 bg-secondary text-white relative overflow-hidden">
+      <header className="pt-14 pb-12 bg-secondary text-white relative overflow-hidden">
         <motion.div 
             animate={{ scale: [1, 1.2, 1], rotate: [0, -45, 0] }}
             transition={{ duration: 18, repeat: Infinity, ease: "linear" }}

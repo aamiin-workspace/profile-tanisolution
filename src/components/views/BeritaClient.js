@@ -26,7 +26,7 @@ export default function BeritaClient({ initialNews }) {
   };
 
   return (
-    <section className="py-16 bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-300">
+    <section className="py-14 bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
             {/* Filter Buttons */}

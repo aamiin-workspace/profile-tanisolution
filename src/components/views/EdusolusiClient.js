@@ -29,7 +29,7 @@ export default function EdusolusiClient() {
   return (
     <>
       {/* Header */}
-      <header className="pt-24 pb-12 bg-secondary text-white relative overflow-hidden">
+      <header className="pt-14 pb-12 bg-secondary text-white relative overflow-hidden">
         {/* Animated Blob */}
         <motion.div 
             animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}

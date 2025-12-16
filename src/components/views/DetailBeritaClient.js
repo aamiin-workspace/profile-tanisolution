@@ -14,7 +14,7 @@ export default function DetailBeritaClient({ news }) {
   };
 
   return (
-    <div className="pt-24 pb-16 bg-white dark:bg-gray-900 min-h-screen transition-colors duration-300">
+    <div className="pt-14 pb-16 bg-white dark:bg-gray-900 min-h-screen transition-colors duration-300">
         <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             
             {/* Navigasi Kembali */}
