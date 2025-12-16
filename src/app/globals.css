@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- GLOBAL STYLES --- */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+body {
+  @apply bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-200 transition-colors duration-300;
+}
+
+/* --- ANIMATIONS --- */
+
+@keyframes fadeInUp {
+  0% { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* --- UTILITY CLASSES --- */
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease both;
+}
+
+.animate-shake {
+  animation: shake 0.5s ease;
+}
+
+.animate-fade {
+  animation: fadeIn 0.5s ease both;
+}
+
+.animate-pop {
+  animation: popIn 0.35s ease-out both;
+}
+
+.hover-lift {
+  transition: 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-3px) scale(1.02);
+}
