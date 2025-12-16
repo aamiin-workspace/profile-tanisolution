@@ -2,6 +2,8 @@ import { Suspense } from 'react';
 import pool from '@/lib/db'; // Import koneksi DB langsung
 import KolaborasiClient from '@/components/views/KolaborasiClient';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
   title: 'Kolaborasi | Magang, Riset & Kunjungan Tani Solution',
   description: 'Program Magang/PKL, Kunjungan Industri, dan Kolaborasi Riset bersama Tani Solution.',

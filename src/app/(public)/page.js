@@ -5,6 +5,8 @@ import Partners from '@/components/Partners';
 import Contact from '@/components/Contact';
 import pool from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
   title: 'Home | Tani Solution Indonesia',
   description: 'Start-up Agritech Manufaktur yang berfokus pada inovasi alat semi mekanisasi pertanian modern.',

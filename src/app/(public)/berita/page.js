@@ -1,19 +1,18 @@
-import pool from '@/lib/db'; // Pastikan path ini benar sesuai db.js Anda
+import pool from '@/lib/db'; 
 import Link from 'next/link';
-import ImageFallback from '@/components/utils/ImageFallback'; // Import komponen dari langkah 1
+import ImageFallback from '@/components/utils/ImageFallback'; 
+
+export const dynamic = 'force-dynamic';
 
 export const metadata = {
   title: 'Berita & Artikel | Tani Solution',
   description: 'Informasi terbaru seputar kegiatan, inovasi teknologi, dan edukasi pertanian dari Tani Solution.',
 };
 
-// Fungsi Ambil Data (Berjalan di Server)
 async function getNewsData() {
   try {
-    // Query ke TiDB
     const [rows] = await pool.query('SELECT * FROM news ORDER BY date DESC');
     
-    // Serialisasi: Ubah objek Date menjadi String agar bisa dikirim ke komponen React
     return rows.map(item => ({
         ...item,
         date: item.date ? item.date.toISOString() : null,
@@ -21,7 +20,6 @@ async function getNewsData() {
     }));
   } catch (error) {
     console.error("Gagal ambil berita:", error);
-    // Kembalikan array kosong agar halaman tidak error 500 (Blank)
     return [];
   }
 }
@@ -49,7 +47,7 @@ export default async function BeritaPage() {
             // Tampilan Jika Data Kosong
             <div className="flex flex-col items-center justify-center py-20 bg-gray-50 dark:bg-gray-800 rounded-xl border border-dashed border-gray-300 dark:border-gray-700">
                 <div className="text-gray-400 text-6xl mb-4">
-                  <i className="fas fa-newspaper"></i> {/* Pastikan FontAwesome ada, atau hapus icon ini */}
+                  <i className="fas fa-newspaper"></i> 
                 </div>
                 <p className="text-gray-500 dark:text-gray-400 text-lg font-medium">
                   Belum ada berita yang diterbitkan saat ini.
@@ -64,7 +62,6 @@ export default async function BeritaPage() {
                       className="group bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-xl border border-gray-100 dark:border-gray-700 transition-all duration-300 overflow-hidden flex flex-col"
                     >
                         
-                        {/* Area Gambar (Menggunakan Component ImageFallback) */}
                         <div className="relative w-full h-48 bg-gray-200 dark:bg-gray-700 overflow-hidden">
                             <ImageFallback 
                                 src={item.image} 
