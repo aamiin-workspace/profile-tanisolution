@@ -1,69 +1,63 @@
 import { NextResponse } from 'next/server';
 import pool from '@/lib/db';
-import { uploadFile } from '@/lib/upload';
-import { jwtVerify } from 'jose';
+import cloudinary from '@/lib/cloudinary';
 
-async function checkAuth(req) {
-  const token = req.cookies.get('token')?.value;
-  if (!token) throw new Error('Unauthorized');
-  const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-  await jwtVerify(token, secret);
-}
-
-export async function GET(req) {
+// --- GET: Ambil Semua Data ---
+export async function GET() {
   try {
-    const { searchParams } = new URL(req.url);
-    const category = searchParams.get('category'); 
-
-    let query = 'SELECT * FROM collaborations';
-    let params = [];
-
-    if (category) {
-      query += ' WHERE category = ?';
-      params.push(category);
-    }
-    
-    query += ' ORDER BY date DESC';
-
-    const [rows] = await pool.query(query, params);
+    const [rows] = await pool.query('SELECT * FROM collaborations ORDER BY date DESC');
     return NextResponse.json(rows);
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
 
-export async function POST(req) {
+// --- POST: Tambah Data Baru ---
+export async function POST(request) {
   try {
-    await checkAuth(req);
-
-    const formData = await req.formData();
+    const formData = await request.formData();
     
-    const category = formData.get('category'); 
+    // Ambil field text
     const title = formData.get('title');
+    const category = formData.get('category');
     const caption = formData.get('caption');
     const detail = formData.get('detail');
     const extra_1 = formData.get('extra_1') || '';
     const extra_2 = formData.get('extra_2') || '';
-    const date = formData.get('date') || new Date().toISOString().split('T')[0];
+    const date = formData.get('date');
     const imageFile = formData.get('image');
 
-    let imagePath = null;
-    if (imageFile && imageFile.size > 0) {
-        imagePath = await uploadFile(imageFile, 'collab');
+    let imageUrl = null;
+
+    // Proses Upload Gambar ke Cloudinary (Jika ada)
+    if (imageFile && typeof imageFile === 'object') {
+        const bytes = await imageFile.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+
+        const uploadResult = await new Promise((resolve, reject) => {
+            cloudinary.uploader.upload_stream(
+                { folder: 'tanisolution/collaborations', resource_type: 'image' },
+                (error, result) => (error ? reject(error) : resolve(result))
+            ).end(buffer);
+        });
+        imageUrl = uploadResult.secure_url;
     }
 
+    // Simpan ke MySQL
     const query = `
-      INSERT INTO collaborations (category, title, caption, detail, extra_1, extra_2, date, image) 
+      INSERT INTO collaborations 
+      (title, category, caption, detail, extra_1, extra_2, date, image) 
       VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `;
+    
+    await pool.query(query, [
+      title, category, caption, detail, extra_1, extra_2, date, imageUrl
+    ]);
 
-    const [result] = await pool.query(query, 
-      [category, title, caption, detail, extra_1, extra_2, date, imagePath]
-    );
-
-    return NextResponse.json({ message: 'Collaboration created', id: result.insertId });
+    return NextResponse.json({ message: "Data berhasil disimpan" });
 
   } catch (error) {
+    console.error("Error POST collab:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
