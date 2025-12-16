@@ -171,21 +171,32 @@ export default function PartnerManager() {
                 </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                {loading ? <tr><td colSpan="3" className="p-4 text-center">Loading...</td></tr> : list.map(item => (
-                    <tr key={item.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                        <td className="p-3">
-                            <div className="relative w-16 h-10 bg-white rounded border">
-                                <Image src={item.image} alt="logo" fill className="object-contain p-1" />
-                            </div>
-                        </td>
-                        <td className="p-3 font-bold">{item.name}</td>
-                        <td className="p-3 text-center space-x-3">
-                            <button onClick={() => handleEdit(item)} className="text-yellow-500 font-bold hover:text-yellow-600"><i className="fas fa-edit"></i> Edit</button>
-                            <button onClick={() => confirmDelete(item.id)} className="text-red-500 font-bold hover:text-red-600"><i className="fas fa-trash"></i> Hapus</button>
-                        </td>
-                    </tr>
-                ))}
-            </tbody>
+              {loading ? <tr><td colSpan="3" className="p-4 text-center">Loading...</td></tr> : list.map(item => (
+                  <tr key={item.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                      <td className="p-3">
+                          <div className="relative w-16 h-10 bg-white rounded border flex items-center justify-center overflow-hidden">
+                              {/* Gunakan tag <img> biasa untuk Admin Panel agar lebih fleksibel 
+                                  menangani URL Cloudinary vs URL Lokal tanpa ribet config width/height 
+                              */}
+                              <img 
+                                  src={item.image || '/placeholder.jpg'} 
+                                  alt="logo" 
+                                  className="object-contain w-full h-full p-1" 
+                              />
+                          </div>
+                      </td>
+                      <td className="p-3 font-bold">{item.name}</td>
+                      <td className="p-3 text-center space-x-3">
+                          <button onClick={() => handleEdit(item)} className="text-yellow-500 font-bold hover:text-yellow-600">
+                            <i className="fas fa-edit"></i> Edit
+                          </button>
+                          <button onClick={() => confirmDelete(item.id)} className="text-red-500 font-bold hover:text-red-600">
+                            <i className="fas fa-trash"></i> Hapus
+                          </button>
+                      </td>
+                  </tr>
+              ))}
+          </tbody>
         </table>
       </div>
     </div>

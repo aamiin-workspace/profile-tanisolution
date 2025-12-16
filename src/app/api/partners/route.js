@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import pool from '@/lib/db';
-import { writeFile } from 'fs/promises';
-import path from 'path';
+import cloudinary from '@/lib/cloudinary'; // Pastikan file ini sudah dibuat sesuai panduan sebelumnya
 
+// --- GET: Ambil Semua Data ---
 export async function GET() {
   try {
     const [rows] = await pool.query('SELECT * FROM partners ORDER BY created_at DESC');
@@ -12,29 +12,44 @@ export async function GET() {
   }
 }
 
+// --- POST: Tambah Partner Baru (Upload ke Cloudinary) ---
 export async function POST(request) {
   try {
     const data = await request.formData();
     const name = data.get('name');
-    const image = data.get('image');
+    const image = data.get('image'); // File object
 
-    if (!image) {
-      return NextResponse.json({ error: "Image is required" }, { status: 400 });
+    if (!image || !name) {
+      return NextResponse.json({ error: "Nama dan Gambar wajib diisi" }, { status: 400 });
     }
 
+    // 1. Ubah File menjadi Buffer
     const bytes = await image.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    const fileName = `${Date.now()}-${image.name.replace(/\s/g, '-')}`;
-    const filePath = path.join(process.cwd(), 'public/uploads', fileName);
+
+    // 2. Upload ke Cloudinary (Folder: tanisolution/partners)
+    const uploadResult = await new Promise((resolve, reject) => {
+      cloudinary.uploader.upload_stream(
+        { 
+          folder: 'tanisolution/partners', // Nama folder di Cloudinary
+          resource_type: 'image'
+        },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result);
+        }
+      ).end(buffer);
+    });
+
+    // 3. Simpan URL Cloudinary ke Database MySQL
+    const imageUrl = uploadResult.secure_url; 
     
-    await writeFile(filePath, buffer);
-    const dbImagePath = `/uploads/${fileName}`;
+    await pool.query('INSERT INTO partners (name, image) VALUES (?, ?)', [name, imageUrl]);
 
-    await pool.query('INSERT INTO partners (name, image) VALUES (?, ?)', [name, dbImagePath]);
+    return NextResponse.json({ message: "Partner created successfully", data: { name, image: imageUrl } });
 
-    return NextResponse.json({ message: "Partner created successfully" });
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error("Upload Error:", error);
+    return NextResponse.json({ error: error.message || "Gagal upload gambar" }, { status: 500 });
   }
 }
