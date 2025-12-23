@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
+  metadataBase: new URL('https://www.tanisolution.id'),
   title: {
     default: "Global Tani Solution | Inovasi Alat Pertanian Modern",
     template: "%s | Global Tani Solution",
