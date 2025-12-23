@@ -51,6 +51,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Handle Click Outside Dropdown
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -61,6 +62,21 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // --- LOGIKA SCROLL OTOMATIS (Fix Mobile & Cross Page) ---
+  // Fungsi ini mendeteksi jika URL memiliki hash (#about, #contact) saat halaman diload
+  useEffect(() => {
+    if (pathname === "/") {
+      const hash = window.location.hash; // ambil #about atau #contact
+      if (hash) {
+        const id = hash.substring(1); // buang tanda #
+        setTimeout(() => {
+          scrollToSection(id);
+        }, 100); // beri sedikit jeda agar halaman render dulu
+      }
+    }
+  }, [pathname]);
+
+  // ScrollSpy untuk Home Page
   useEffect(() => {
     const handleScrollSpy = () => {
       if (pathname !== "/") return;
@@ -87,22 +103,27 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScrollSpy);
   }, [pathname]);
 
+  // Logika Active State Menu Utama
   useEffect(() => {
     if (pathname !== "/") {
       setActiveLink("");
       if (pathname === "/prestasi") {
         setActiveMainMenu("tentang");
-      } else if (pathname === "/teknosolusi" || pathname === "/edusolusi") {
+      } 
+      else if (pathname === "/teknosolusi" || pathname === "/edusolusi" || pathname === "/kreasolusi" || pathname === "/minilab") {
         setActiveMainMenu("layanan");
-      } else if (pathname === "/kolaborasi") {
+      } 
+      else if (pathname === "/kolaborasi") {
         setActiveMainMenu("kolab");
-      } else if (pathname === "/berita") {
+      } 
+      else if (pathname === "/berita") {
         setActiveMainMenu("berita");
       } else {
         setActiveMainMenu(null);
       }
     } else {
       setActiveLink("home");
+      // Jika di home tapi sedang di section about, biarkan menu Tentang aktif
       if (activeLink !== "about") {
         setActiveMainMenu(null);
       }
@@ -157,6 +178,7 @@ export default function Navbar() {
         behavior: 'smooth'
       });
       
+      // Update state manual agar UI langsung responsif
       setTimeout(() => {
         setActiveLink(sectionId);
         if (sectionId === "about") {
@@ -166,25 +188,28 @@ export default function Navbar() {
     }
   };
 
+  // --- HANDLER KLIK VISI MISI (FIXED) ---
   const handleVisiMisiClick = () => {
     setActiveMainMenu("tentang");
     setActiveDropdown(null);
     setMobileOpenDropdown(null);
+    closeMenu();
     
     if (pathname === "/") {
       scrollToSection("about");
     } else {
-      router.replace("/");
-      setTimeout(() => {
-        scrollToSection("about");
-      }, 100);
+      // Gunakan push dengan hash agar useEffect di atas menangkapnya
+      router.push("/#about"); 
     }
-    closeMenu();
   };
 
+  // --- HANDLER KLIK BERANDA ---
   const handleBerandaClick = (e) => {
     e.preventDefault();
     setActiveMainMenu(null);
+    setActiveDropdown(null);
+    setMobileOpenDropdown(null);
+    closeMenu();
     
     if (pathname === "/") {
       scrollToSection("home");
@@ -192,25 +217,23 @@ export default function Navbar() {
     } else {
       router.push("/");
     }
-    setActiveDropdown(null);
-    setMobileOpenDropdown(null);
-    closeMenu();
   };
 
+  // --- HANDLER KLIK HUBUNGI KAMI (FIXED) ---
   const handleHubungiKamiClick = (e) => {
     e.preventDefault();
     setActiveMainMenu(null);
+    setActiveDropdown(null);
+    setMobileOpenDropdown(null);
+    closeMenu();
     
     if (pathname === "/") {
       scrollToSection("contact");
       setActiveLink("contact");
     } else {
-      router.push("/");
-      setTimeout(() => scrollToSection("contact"), 500);
+      // Gunakan push dengan hash agar useEffect di atas menangkapnya
+      router.push("/#contact");
     }
-    setActiveDropdown(null);
-    setMobileOpenDropdown(null);
-    closeMenu();
   };
 
   const handlePageLinkClick = (mainMenuName) => {
@@ -229,6 +252,8 @@ export default function Navbar() {
   const isPrestasiActive = pathname === "/prestasi";
   const isTeknosolusiActive = pathname === "/teknosolusi";
   const isEdusolusiActive = pathname === "/edusolusi";
+  const isKreasolusiActive = pathname === "/kreasolusi";
+  const isMinilabActive = pathname === "/minilab"; 
   const isKolaborasiActive = pathname === "/kolaborasi";
 
   return (
@@ -327,6 +352,20 @@ export default function Navbar() {
                     >
                       Edusolusi
                     </Link>
+                    <Link 
+                      href="/kreasolusi" 
+                      onClick={() => handlePageLinkClick("layanan")}
+                      className={dropdownItemClass(isKreasolusiActive)}
+                    >
+                      Kreasolusi
+                    </Link>
+                    <Link 
+                      href="/minilab" 
+                      onClick={() => handlePageLinkClick("layanan")}
+                      className={dropdownItemClass(isMinilabActive)}
+                    >
+                      Agritech
+                    </Link>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -346,7 +385,6 @@ export default function Navbar() {
                     transition={{ duration: 0.2 }}
                     className={dropdownContainerBaseClass}
                   >
-                    {/* PERUBAHAN: Menggunakan Query Param (?tab=...) pengganti state object */}
                     <Link 
                       href="/kolaborasi?tab=magang" 
                       onClick={() => handlePageLinkClick("kolab")}
@@ -495,6 +533,20 @@ export default function Navbar() {
                           className="block py-3 px-8 text-sm hover:text-primary dark:text-gray-400 dark:hover:text-green-400"
                         >
                           • Edusolusi
+                        </Link>
+                        <Link 
+                          href="/kreasolusi" 
+                          onClick={() => handleMobilePageLinkClick("layanan")}
+                          className="block py-3 px-8 text-sm hover:text-primary dark:text-gray-400 dark:hover:text-green-400"
+                        >
+                          • Kreasolusi
+                        </Link>
+                        <Link 
+                          href="/minilab" 
+                          onClick={() => handleMobilePageLinkClick("layanan")}
+                          className="block py-3 px-8 text-sm hover:text-primary dark:text-gray-400 dark:hover:text-green-400"
+                        >
+                          • Agritech
                         </Link>
                       </motion.div>
                     )}
