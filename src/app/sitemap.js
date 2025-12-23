@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const baseUrl = 'https://profile-tanisolution.vercel.app';
+  const baseUrl = "https://tanisolution.id";
 
   return [
     { url: baseUrl, lastModified: new Date() },
