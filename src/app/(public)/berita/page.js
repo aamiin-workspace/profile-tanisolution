@@ -31,7 +31,6 @@ export default async function BeritaPage() {
     <section className="py-16 bg-white dark:bg-gray-900 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header Section */}
         <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
               Berita & Artikel
@@ -42,9 +41,7 @@ export default async function BeritaPage() {
             </p>
         </div>
 
-        {/* Content Section */}
         {news.length === 0 ? (
-            // Tampilan Jika Data Kosong
             <div className="flex flex-col items-center justify-center py-20 bg-gray-50 dark:bg-gray-800 rounded-xl border border-dashed border-gray-300 dark:border-gray-700">
                 <div className="text-gray-400 text-6xl mb-4">
                   <i className="fas fa-newspaper"></i> 
@@ -54,7 +51,6 @@ export default async function BeritaPage() {
                 </p>
             </div>
         ) : (
-            // Grid Berita
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {news.map((item) => (
                     <article 
@@ -69,7 +65,6 @@ export default async function BeritaPage() {
                                 className="w-full h-full object-cover group-hover:scale-105 transition duration-500 ease-in-out"
                             />
                             
-                            {/* Badge Kategori */}
                             <div className="absolute top-4 left-4">
                                 <span className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm text-green-700 dark:text-green-400 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide shadow-sm">
                                     {item.category}
@@ -77,9 +72,7 @@ export default async function BeritaPage() {
                             </div>
                         </div>
 
-                        {/* Konten Teks */}
                         <div className="p-6 flex flex-col flex-grow">
-                            {/* Tanggal */}
                             <div className="flex items-center text-xs text-gray-400 mb-3 space-x-2">
                                 <i className="far fa-calendar-alt"></i>
                                 <span>
@@ -89,19 +82,16 @@ export default async function BeritaPage() {
                                 </span>
                             </div>
                             
-                            {/* Judul */}
                             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 leading-tight group-hover:text-green-600 transition-colors">
                                 <Link href={`/berita/${item.id}`}>
                                     {item.title}
                                 </Link>
                             </h3>
                             
-                            {/* Excerpt / Cuplikan */}
                             <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3 flex-grow">
                                 {item.excerpt || "Simak selengkapnya artikel ini untuk mendapatkan informasi detail mengenai topik yang dibahas..."}
                             </p>
 
-                            {/* Tombol Baca */}
                             <div className="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700">
                                 <Link 
                                   href={`/berita/${item.id}`} 

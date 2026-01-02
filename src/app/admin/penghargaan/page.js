@@ -222,7 +222,6 @@ export default function AchievementManager() {
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4 max-w-xl mx-auto bg-gray-50 dark:bg-gray-700/50 p-6 rounded-lg border border-gray-200 dark:border-gray-600">
             
-            {/* PILIHAN KATEGORI */}
             <div>
                 <label className="block text-sm font-bold mb-1 dark:text-gray-300">Jenis Data</label>
                 <select 

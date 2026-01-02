@@ -198,7 +198,6 @@ export default function KolaborasiManager() {
         onConfirm={modal.onConfirm}
       />
 
-      {/* HEADER */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
           {view === 'list' ? 'Manajemen Kolaborasi' : (isEditing ? 'Edit Data' : 'Tambah Data')}
@@ -210,7 +209,6 @@ export default function KolaborasiManager() {
         )}
       </div>
 
-      {/* VIEW: LIST */}
       {view === 'list' && (
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm text-gray-600 dark:text-gray-300">
@@ -267,7 +265,6 @@ export default function KolaborasiManager() {
         </div>
       )}
 
-      {/* VIEW: FORM */}
       {view === 'form' && (
         <form onSubmit={handleSubmit} className="space-y-4 max-w-3xl mx-auto bg-gray-50 dark:bg-gray-700/50 p-6 rounded-lg border border-gray-200 dark:border-gray-600">
           
@@ -311,14 +308,12 @@ export default function KolaborasiManager() {
             <input type="text" name="caption" value={formData.caption} onChange={handleChange} className={inputClass} required />
           </div>
 
-          {/* DYNAMIC FIELDS */}
           <div className="bg-blue-50 dark:bg-gray-700/50 p-4 rounded-lg border border-blue-100 dark:border-gray-600">
              <h4 className="text-xs font-bold text-blue-500 dark:text-blue-300 uppercase mb-3 tracking-widest">
                 Detail Khusus: {formData.category}
              </h4>
              
              <div className="grid grid-cols-1 gap-4">
-                {/* 1. Field Extra 1 (Peneliti / Instansi) */}
                 {(formData.category === 'riset' || formData.category === 'kunjungan') && (
                     <div>
                         <label className="block text-xs font-bold text-blue-800 dark:text-blue-300 mb-1">{getLabelExtra1()}</label>
@@ -326,7 +321,6 @@ export default function KolaborasiManager() {
                     </div>
                 )}
                 
-                {/* 2. Field Extra 2 (Abstrak - Khusus Riset) */}
                 {formData.category === 'riset' && (
                     <div>
                         <label className="block text-xs font-bold text-blue-800 dark:text-blue-300 mb-1">Abstrak Penelitian</label>

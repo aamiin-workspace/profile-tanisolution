@@ -31,7 +31,6 @@ export default async function PrestasiPage() {
 
   return (
     <Suspense fallback={<LoadingState />}>
-        {/* Pastikan di dalam PrestasiClient Anda menggunakan <ImageFallback /> atau <img> biasa tanpa onError yang aneh */}
         <PrestasiClient initialData={data} />
     </Suspense>
   );

@@ -7,7 +7,6 @@ import Image from 'next/image';
 
 export default function MinilabClient() {
 
-  // Data 6 Petak Lahan (Sesuai update sebelumnya)
   const zones = [
     {
       title: "Zona 1: Irigasi Tetes Otomatis",
@@ -67,9 +66,7 @@ export default function MinilabClient() {
 
   return (
     <>
-      {/* --- HEADER --- */}
       <header className="pt-14 pb-16 bg-teal-900 text-white relative overflow-hidden">
-        {/* Animated Background */}
         <motion.div 
             animate={{ scale: [1, 1.1, 1], rotate: [0, 20, 0] }}
             transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
@@ -95,16 +92,12 @@ export default function MinilabClient() {
         </div>
       </header>
 
-      {/* --- CONTENT SECTION --- */}
       <section className="py-16 bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
 
-            {/* 1. INTRO & KONSEP (Updated Text Sesuai Permintaan) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <FadeInUp>
                 <div className="relative h-[500px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-gray-700 group">
-
-                    {/* IMAGE */}
                     <Image
                     src="/minilab/minilab.webp"
                     alt="Mini Lab Teknologi Pertanian"
@@ -113,7 +106,6 @@ export default function MinilabClient() {
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
 
-                    {/* OVERLAY GRADIENT + TEXT */}
                     <div className="absolute inset-0 bg-gradient-to-t from-teal-900/90 via-teal-900/30 to-transparent flex flex-col justify-end p-8 text-white">
                     <h3 className="text-2xl font-bold mb-2">Smart Farming Edupark</h3>
                     <p className="text-sm opacity-90">
@@ -127,18 +119,13 @@ export default function MinilabClient() {
                     <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-6">
                         Laboratorium Teknologi <span className="text-teal-600">Pertanian</span>
                     </h2>
-                    
-                    {/* Deskripsi Paragraf 1 */}
                     <p className="text-gray-600 dark:text-gray-300 mb-4 text-justify leading-relaxed">
                         Laboratorium Teknologi Pertanian ini dirancang sebagai ruang pembelajaran dan kolaborasi yang mengintegrasikan budidaya tanaman dengan penerapan teknologi pertanian. Melalui konsep lahan tematik dan greenhouse, laboratorium ini menjadi sarana edukasi serta riset kolaboratif untuk mendorong inovasi dan regenerasi pertanian berbasis teknologi.
                     </p>
-                    
-                    {/* Deskripsi Paragraf 2 */}
-                    <p className="text-gray-600 dark:text-gray-300 mb-6 text-justify leading-relaxed">
+                                        <p className="text-gray-600 dark:text-gray-300 mb-6 text-justify leading-relaxed">
                         Dengan konsep yang ramah anak, laboratorium ini diharapkan dapat menjadi destinasi kunjungan sekolah atau kegiatan anak-anak untuk belajar mengenai asal-usul pangan, cara kerja teknologi, dan pentingnya menjaga ekosistem melalui praktik pertanian yang berkelanjutan.
                     </p>
 
-                    {/* Fungsi Utama (Bullet Points) */}
                     <div className="bg-teal-50 dark:bg-teal-900/20 p-5 rounded-xl border border-teal-200 dark:border-teal-800">
                         <h4 className="font-bold text-teal-800 dark:text-teal-400 mb-3 uppercase text-sm tracking-wide">Fungsi Utama:</h4>
                         <ul className="space-y-3">
@@ -159,7 +146,6 @@ export default function MinilabClient() {
                 </FadeInUp>
             </div>
 
-            {/* 2. ZONA TEKNOLOGI (6 PETAK) */}
             <div>
                 <div className="text-center mb-12">
                     <FadeInUp>
@@ -199,7 +185,6 @@ export default function MinilabClient() {
                 </div>
             </div>
 
-            {/* 3. SARANA EDUKASI (Highlight Ramah Anak) */}
             <FadeInUp>
                 <div className="bg-gradient-to-r from-teal-700 to-green-700 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden shadow-2xl">
                     <div className="absolute bottom-0 left-0 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl -ml-10 -mb-10"></div>
@@ -229,7 +214,6 @@ export default function MinilabClient() {
                 </div>
             </FadeInUp>
 
-            {/* 4. CALL TO ACTION (Kunjungan) */}
             <div className="text-center pb-8">
                 <FadeInUp>
                     <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">Tertarik Mengadakan Kunjungan?</h2>

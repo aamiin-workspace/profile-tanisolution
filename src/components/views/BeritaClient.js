@@ -29,7 +29,6 @@ export default function BeritaClient({ initialNews }) {
     <section className="py-14 bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            {/* Filter Buttons */}
             <FadeInUp delay={0.3}>
                 <div className="flex flex-wrap justify-center gap-3 mb-12">
                     {categories.map((cat) => (
@@ -50,14 +49,12 @@ export default function BeritaClient({ initialNews }) {
                 </div>
             </FadeInUp>
 
-            {/* Content */}
             {allNews.length === 0 ? (
                 <div className="text-center py-20">
                     <p className="text-gray-500 dark:text-gray-400">Belum ada berita tersimpan.</p>
                 </div>
             ) : featuredNews ? (
                 <>
-                    {/* Berita Utama */}
                     <FadeInUp delay={0.4}>
                         <div className="mb-12">
                             <motion.div 
@@ -97,7 +94,6 @@ export default function BeritaClient({ initialNews }) {
                         </div>
                     </FadeInUp>
 
-                    {/* Berita Lainnya - Staggered Grid */}
                     {otherNews.length > 0 && (
                         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {otherNews.map((news) => (

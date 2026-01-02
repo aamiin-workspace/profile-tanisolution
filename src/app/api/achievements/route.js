@@ -2,10 +2,8 @@ import { NextResponse } from 'next/server';
 import pool from '@/lib/db';
 import cloudinary from '@/lib/cloudinary';
 
-// --- GET: Ambil Semua Data ---
 export async function GET() {
   try {
-    // Urutkan berdasarkan tahun terbaru, lalu waktu input terbaru
     const [rows] = await pool.query('SELECT * FROM achievements ORDER BY year DESC, created_at DESC');
     return NextResponse.json(rows);
   } catch (error) {
@@ -13,20 +11,18 @@ export async function GET() {
   }
 }
 
-// --- POST: Tambah Prestasi Baru ---
 export async function POST(request) {
   try {
     const formData = await request.formData();
     
     const title = formData.get('title');
-    const category = formData.get('category'); // 'award' atau 'research'
+    const category = formData.get('category');
     const year = formData.get('year');
     const description = formData.get('description');
     const imageFile = formData.get('image');
 
     let imageUrl = null;
 
-    // Upload ke Cloudinary (Folder: tanisolution/achievements)
     if (imageFile && typeof imageFile === 'object') {
         const bytes = await imageFile.arrayBuffer();
         const buffer = Buffer.from(bytes);
@@ -40,7 +36,6 @@ export async function POST(request) {
         imageUrl = uploadResult.secure_url;
     }
 
-    // Simpan ke MySQL
     const query = `INSERT INTO achievements (title, category, year, description, image) VALUES (?, ?, ?, ?, ?)`;
     
     await pool.query(query, [title, category, year, description, imageUrl]);

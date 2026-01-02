@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import pool from '@/lib/db';
 import cloudinary from '@/lib/cloudinary';
 
-// Helper: Ambil Public ID Cloudinary untuk hapus file
 const getPublicIdFromUrl = (url) => {
     if (!url || !url.includes('cloudinary')) return null;
     try {
@@ -14,18 +13,15 @@ const getPublicIdFromUrl = (url) => {
     } catch (e) { return null; }
 };
 
-// --- DELETE: Hapus Data & Gambar ---
 export async function DELETE(request, { params }) {
   const { id } = await params;
   try {
-    // 1. Cek gambar lama
     const [rows] = await pool.query('SELECT image FROM collaborations WHERE id = ?', [id]);
     if (rows.length > 0 && rows[0].image) {
         const publicId = getPublicIdFromUrl(rows[0].image);
         if (publicId) await cloudinary.uploader.destroy(publicId);
     }
 
-    // 2. Hapus data DB
     await pool.query('DELETE FROM collaborations WHERE id = ?', [id]);
     return NextResponse.json({ message: "Deleted successfully" });
   } catch (error) {
@@ -33,7 +29,6 @@ export async function DELETE(request, { params }) {
   }
 }
 
-// --- PUT: Update Data ---
 export async function PUT(request, { params }) {
   const { id } = await params;
   try {
@@ -48,16 +43,13 @@ export async function PUT(request, { params }) {
     const date = formData.get('date');
     const imageFile = formData.get('image');
 
-    // Cek apakah user upload gambar baru?
     if (imageFile && typeof imageFile === 'object' && imageFile.size > 0) {
-        // A. Hapus gambar lama
         const [rows] = await pool.query('SELECT image FROM collaborations WHERE id = ?', [id]);
         if (rows.length > 0 && rows[0].image) {
             const oldPublicId = getPublicIdFromUrl(rows[0].image);
             if (oldPublicId) await cloudinary.uploader.destroy(oldPublicId);
         }
 
-        // B. Upload gambar baru
         const bytes = await imageFile.arrayBuffer();
         const buffer = Buffer.from(bytes);
         const uploadResult = await new Promise((resolve, reject) => {
@@ -68,7 +60,6 @@ export async function PUT(request, { params }) {
         });
         const newImageUrl = uploadResult.secure_url;
 
-        // C. Update DB (Termasuk Image)
         const query = `
             UPDATE collaborations SET 
             title=?, category=?, caption=?, detail=?, extra_1=?, extra_2=?, date=?, image=? 
@@ -77,7 +68,6 @@ export async function PUT(request, { params }) {
         await pool.query(query, [title, category, caption, detail, extra_1, extra_2, date, newImageUrl, id]);
 
     } else {
-        // Update DB (Tanpa ubah Image)
         const query = `
             UPDATE collaborations SET 
             title=?, category=?, caption=?, detail=?, extra_1=?, extra_2=?, date=? 

@@ -13,11 +13,9 @@ const getPublicIdFromUrl = (url) => {
     } catch (e) { return null; }
 };
 
-// --- DELETE: Hapus Data ---
 export async function DELETE(request, { params }) {
   const { id } = await params;
   try {
-    // Cek gambar lama untuk dihapus dari Cloudinary
     const [rows] = await pool.query('SELECT image FROM achievements WHERE id = ?', [id]);
     if (rows.length > 0 && rows[0].image) {
         const publicId = getPublicIdFromUrl(rows[0].image);
@@ -31,7 +29,6 @@ export async function DELETE(request, { params }) {
   }
 }
 
-// --- PUT: Update Data ---
 export async function PUT(request, { params }) {
   const { id } = await params;
   try {
@@ -43,16 +40,13 @@ export async function PUT(request, { params }) {
     const description = formData.get('description');
     const imageFile = formData.get('image');
 
-    // Jika ada upload gambar baru
     if (imageFile && typeof imageFile === 'object' && imageFile.size > 0) {
-        // Hapus gambar lama
         const [rows] = await pool.query('SELECT image FROM achievements WHERE id = ?', [id]);
         if (rows.length > 0 && rows[0].image) {
             const oldPublicId = getPublicIdFromUrl(rows[0].image);
             if (oldPublicId) await cloudinary.uploader.destroy(oldPublicId);
         }
 
-        // Upload gambar baru
         const bytes = await imageFile.arrayBuffer();
         const buffer = Buffer.from(bytes);
         const uploadResult = await new Promise((resolve, reject) => {
@@ -63,14 +57,12 @@ export async function PUT(request, { params }) {
         });
         const newImageUrl = uploadResult.secure_url;
 
-        // Update DB dengan gambar baru
         await pool.query(
             `UPDATE achievements SET title=?, category=?, year=?, description=?, image=? WHERE id=?`, 
             [title, category, year, description, newImageUrl, id]
         );
 
     } else {
-        // Update DB tanpa ganti gambar
         await pool.query(
             `UPDATE achievements SET title=?, category=?, year=?, description=? WHERE id=?`, 
             [title, category, year, description, id]

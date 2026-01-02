@@ -6,9 +6,6 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import FadeInUp from '@/components/utils/FadeInUp';
 
-// Hapus import StaggerContainer karena bikin berat/macet
-// import { StaggerContainer, StaggerItem } from '@/components/utils/StaggerContainer';
-
 export default function KolaborasiClient({ initialGalleryData }) {
   const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState('magang');
@@ -31,7 +28,6 @@ export default function KolaborasiClient({ initialGalleryData }) {
       return path; 
   };
 
-  // --- LOGIKA RENDER KONTEN TEXT (SAMA SEPERTI SEBELUMNYA) ---
   const renderContent = () => {
     return (
       <FadeInUp key={activeTab} className="space-y-8">
@@ -240,7 +236,6 @@ export default function KolaborasiClient({ initialGalleryData }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row gap-8">
                 
-                {/* --- SIDEBAR MENU (KIRI) --- */}
                 <motion.div 
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -274,11 +269,9 @@ export default function KolaborasiClient({ initialGalleryData }) {
                     </div>
                 </motion.div>
 
-                {/* --- CONTENT AREA (KANAN) --- */}
                 <div className="w-full md:w-3/4 space-y-12">
                     {renderContent()}
 
-                    {/* 2. SECTION DOKUMENTASI & GALERI (YANG DIPERBAIKI) */}
                     <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden p-8">
                         <div className="flex items-center justify-between mb-6">
                             <h3 className="text-xl font-bold text-secondary dark:text-white">
@@ -289,14 +282,13 @@ export default function KolaborasiClient({ initialGalleryData }) {
                         </div>
 
                         {filteredGallery.length > 0 ? (
-                            // --- GRID YANG SUDAH DIPERBAIKI (TANPA STAGGER) ---
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 {filteredGallery.map((item, index) => (
                                     <motion.div 
                                         key={item.id} 
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.4, delay: index * 0.1 }} // Animasi simpel per item
+                                        transition={{ duration: 0.4, delay: index * 0.1 }} 
                                         className="group relative overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-900 shadow-sm border border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-md transition"
                                         onClick={() => setSelectedGalleryItem(item)}
                                     >
@@ -335,7 +327,6 @@ export default function KolaborasiClient({ initialGalleryData }) {
         </div>
       </section>
 
-      {/* --- MODAL DETAIL DOKUMENTASI (TETAP SAMA) --- */}
       <AnimatePresence>
         {selectedGalleryItem && (
             <motion.div 

@@ -112,7 +112,6 @@ export default function PartnerManager() {
   return (
     <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 min-h-screen">
       
-      {/* --- KOMPONEN MODAL DISINI --- */}
       <AdminModal 
         isOpen={modal.isOpen}
         onClose={closeModal}
@@ -124,7 +123,6 @@ export default function PartnerManager() {
 
       <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">Manajemen Partner & Mitra</h2>
 
-      {/* FORM */}
       <form onSubmit={handleSubmit} className="mb-10 bg-gray-50 dark:bg-gray-700/50 p-6 rounded-lg border border-gray-200 dark:border-gray-600">
         <h3 className="font-bold text-lg mb-4 text-gray-700 dark:text-gray-200">{isEditing ? 'Edit Partner' : 'Tambah Partner Baru'}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -160,7 +158,6 @@ export default function PartnerManager() {
         </div>
       </form>
 
-      {/* LIST TABLE */}
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm text-gray-600 dark:text-gray-300">
             <thead className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white uppercase font-bold">
@@ -175,9 +172,6 @@ export default function PartnerManager() {
                   <tr key={item.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
                       <td className="p-3">
                           <div className="relative w-16 h-10 bg-white rounded border flex items-center justify-center overflow-hidden">
-                              {/* Gunakan tag <img> biasa untuk Admin Panel agar lebih fleksibel 
-                                  menangani URL Cloudinary vs URL Lokal tanpa ribet config width/height 
-                              */}
                               <img 
                                   src={item.image || '/placeholder.jpg'} 
                                   alt="logo" 

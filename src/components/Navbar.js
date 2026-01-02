@@ -33,7 +33,6 @@ export default function Navbar() {
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
-  // ------------------------
 
   const [activeMainMenu, setActiveMainMenu] = useState(null);
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -51,7 +50,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Handle Click Outside Dropdown
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -62,21 +60,18 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // --- LOGIKA SCROLL OTOMATIS (Fix Mobile & Cross Page) ---
-  // Fungsi ini mendeteksi jika URL memiliki hash (#about, #contact) saat halaman diload
   useEffect(() => {
     if (pathname === "/") {
-      const hash = window.location.hash; // ambil #about atau #contact
+      const hash = window.location.hash; 
       if (hash) {
-        const id = hash.substring(1); // buang tanda #
+        const id = hash.substring(1); 
         setTimeout(() => {
           scrollToSection(id);
-        }, 100); // beri sedikit jeda agar halaman render dulu
+        }, 100); 
       }
     }
   }, [pathname]);
 
-  // ScrollSpy untuk Home Page
   useEffect(() => {
     const handleScrollSpy = () => {
       if (pathname !== "/") return;
@@ -103,7 +98,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScrollSpy);
   }, [pathname]);
 
-  // Logika Active State Menu Utama
   useEffect(() => {
     if (pathname !== "/") {
       setActiveLink("");
@@ -123,7 +117,6 @@ export default function Navbar() {
       }
     } else {
       setActiveLink("home");
-      // Jika di home tapi sedang di section about, biarkan menu Tentang aktif
       if (activeLink !== "about") {
         setActiveMainMenu(null);
       }
@@ -178,7 +171,6 @@ export default function Navbar() {
         behavior: 'smooth'
       });
       
-      // Update state manual agar UI langsung responsif
       setTimeout(() => {
         setActiveLink(sectionId);
         if (sectionId === "about") {
@@ -188,7 +180,6 @@ export default function Navbar() {
     }
   };
 
-  // --- HANDLER KLIK VISI MISI (FIXED) ---
   const handleVisiMisiClick = () => {
     setActiveMainMenu("tentang");
     setActiveDropdown(null);
@@ -198,12 +189,10 @@ export default function Navbar() {
     if (pathname === "/") {
       scrollToSection("about");
     } else {
-      // Gunakan push dengan hash agar useEffect di atas menangkapnya
       router.push("/#about"); 
     }
   };
 
-  // --- HANDLER KLIK BERANDA ---
   const handleBerandaClick = (e) => {
     e.preventDefault();
     setActiveMainMenu(null);
@@ -219,7 +208,6 @@ export default function Navbar() {
     }
   };
 
-  // --- HANDLER KLIK HUBUNGI KAMI (FIXED) ---
   const handleHubungiKamiClick = (e) => {
     e.preventDefault();
     setActiveMainMenu(null);
@@ -231,7 +219,6 @@ export default function Navbar() {
       scrollToSection("contact");
       setActiveLink("contact");
     } else {
-      // Gunakan push dengan hash agar useEffect di atas menangkapnya
       router.push("/#contact");
     }
   };
@@ -261,7 +248,6 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-12 items-center">
 
-          {/* Logo */}
           <Link 
             href="/" 
             className="flex items-center" 
@@ -285,14 +271,11 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-6" ref={dropdownRef}>
-
             <button onClick={handleBerandaClick} className={getLinkClass("home")}>
               Beranda
             </button>
             
-            {/* Dropdown 1: Tentang Kami */}
             <div className="relative">
               <button onClick={() => toggleDropdown("tentang")} className={getDropdownParentClass("tentang")}>
                 Tentang Kami <i className={`fas fa-chevron-down ml-1 text-xs transition-transform duration-300 ${activeDropdown === "tentang" ? "rotate-180" : ""}`}></i>
@@ -324,7 +307,6 @@ export default function Navbar() {
               </AnimatePresence>
             </div>
 
-            {/* Dropdown 2: Layanan Kami */}
             <div className="relative">
               <button onClick={() => toggleDropdown("layanan")} className={getDropdownParentClass("layanan")}>
                 Layanan Kami <i className={`fas fa-chevron-down ml-1 text-xs transition-transform duration-300 ${activeDropdown === "layanan" ? "rotate-180" : ""}`}></i>
@@ -371,7 +353,6 @@ export default function Navbar() {
               </AnimatePresence>
             </div>
 
-            {/* Dropdown 3: Kolaborasi */}
             <div className="relative">
               <button onClick={() => toggleDropdown("kolab")} className={getDropdownParentClass("kolab")}>
                 Kolaborasi <i className={`fas fa-chevron-down ml-1 text-xs transition-transform duration-300 ${activeDropdown === "kolab" ? "rotate-180" : ""}`}></i>
@@ -428,7 +409,6 @@ export default function Navbar() {
               Hubungi Kami
             </button>
 
-            {/* Tombol Dark Mode Desktop */}
             <motion.button 
               onClick={toggleTheme} 
               className="ml-2 p-2 rounded-full text-gray-600 hover:bg-gray-100 dark:text-yellow-300 dark:hover:bg-gray-800 transition-colors"
@@ -438,7 +418,6 @@ export default function Navbar() {
             </motion.button>
           </div>
 
-          {/* Mobile Button */}
           <div className="flex items-center gap-2 md:hidden">
             <motion.button onClick={toggleTheme} className="p-2 text-gray-600 dark:text-yellow-300" whileTap={{ rotate: 180 }}>
               {theme === "dark" ? <i className="fas fa-sun text-lg"></i> : <i className="fas fa-moon text-lg"></i>}
@@ -450,7 +429,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* MOBILE MENU (ANIMATED) */}
       <AnimatePresence>
         {isOpen && (
           <motion.div 
@@ -468,7 +446,6 @@ export default function Navbar() {
                   Beranda
                 </button>
                 
-                {/* Tentang Kami - Mobile Dropdown */}
                 <div className="border-b dark:border-gray-700">
                   <button 
                     onClick={() => toggleMobileDropdown("tentang")}
@@ -503,7 +480,6 @@ export default function Navbar() {
                   </AnimatePresence>
                 </div>
 
-                {/* Layanan Kami - Mobile Dropdown */}
                 <div className="border-b dark:border-gray-700">
                   <button 
                     onClick={() => toggleMobileDropdown("layanan")}
@@ -553,7 +529,6 @@ export default function Navbar() {
                   </AnimatePresence>
                 </div>
 
-                {/* Kolaborasi - Mobile Dropdown */}
                 <div className="border-b dark:border-gray-700">
                   <button 
                     onClick={() => toggleMobileDropdown("kolab")}

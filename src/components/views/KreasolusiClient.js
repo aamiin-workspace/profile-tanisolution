@@ -60,7 +60,6 @@ export default function KreasolusiClient() {
   return (
     <>
       <header className="pt-14 pb-16 bg-green-900 text-white relative overflow-hidden">
-        {/* Animated Blob (Hiasan) */}
         <motion.div 
             animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
             transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
@@ -86,14 +85,12 @@ export default function KreasolusiClient() {
         </div>
       </header>
 
-      {/* --- CONTENT SECTION --- */}
       <section className="py-16 bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <FadeInUp>
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-gray-700 h-80 group">
 
-                    {/* IMAGE */}
                     <Image
                     src="/kreasolusi/studio.webp"
                     alt="Studio KreaSolusi - Ruang Kreatif"
@@ -102,7 +99,6 @@ export default function KreasolusiClient() {
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
 
-                    {/* OVERLAY */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col justify-end p-6">
                     <h3 className="font-bold text-lg text-white">Ruang Kreatif UMKM</h3>
                     <p className="text-sm text-gray-300">
@@ -120,15 +116,12 @@ export default function KreasolusiClient() {
                         Studio Kreasolusi merupakan fasilitas kreatif yang dibangun oleh PT Global Tani Solution sebagai ruang produksi konten yang dapat digunakan untuk foto produk, video, hingga live selling.
                     </p>
 
-                    {/* Visi & Misi Section */}
                     <div className="bg-white dark:bg-gray-800 p-6 rounded-xl border-l-4 border-green-500 shadow-sm">
-                        {/* Visi */}
                         <h4 className="font-bold text-gray-800 dark:text-white mb-3">Visi Kami</h4>
                         <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-6">
                             Menciptakan ruang kreatif yang memberdayakan masyarakat dan UMKM untuk menghasilkan konten berkualitas tanpa hambatan.
                         </p>
 
-                        {/* Misi */}
                         <h4 className="font-bold text-gray-800 dark:text-white mb-3">Misi Kami</h4>
                         <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-300">
                             <li className="flex items-start"><i className="fas fa-check-circle text-green-500 mt-1 mr-3"></i> Menyediakan fasilitas produksi konten yang mudah dan gratis.</li>
@@ -148,7 +141,6 @@ export default function KreasolusiClient() {
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {/* Self Service Card */}
                     <FadeInUp>
                         <motion.div 
                             whileHover={{ y: -5 }}
@@ -174,7 +166,6 @@ export default function KreasolusiClient() {
                         </motion.div>
                     </FadeInUp>
 
-                    {/* Pro Service Card */}
                     <FadeInUp delay={0.2}>
                         <motion.div 
                             whileHover={{ y: -5 }}
@@ -215,7 +206,6 @@ export default function KreasolusiClient() {
                     </FadeInUp>
                 </div>
 
-                {/* Grid 4 Kolom agar Paket Hemat & Live terpisah dan jelas */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {pricingData.map((category, idx) => (
                         <FadeInUp key={idx} delay={idx * 0.1}>
@@ -243,7 +233,6 @@ export default function KreasolusiClient() {
             </div>
 
             <div className="bg-gray-900 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden shadow-2xl">
-                {/* Background Decor */}
                 <div className="absolute top-0 right-0 w-96 h-96 bg-green-600 opacity-20 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-600 opacity-10 rounded-full blur-3xl -ml-16 -mb-16 pointer-events-none"></div>
                 
@@ -268,13 +257,11 @@ export default function KreasolusiClient() {
                 </div>
             </div>
 
-            {/* Diupdate menjadi 4 Langkah Sesuai PDF */}
             <div className="text-center pb-8">
                 <FadeInUp>
                     <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-8">Cara Booking Studio</h2>
                     <div className="flex flex-col md:flex-row justify-center items-stretch gap-6 max-w-5xl mx-auto bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
                         
-                        {/* Steps Container */}
                         <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
                             <div className="flex items-center p-3 bg-gray-50 dark:bg-gray-900 rounded-lg">
                                 <div className="w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center font-bold mr-3 text-sm flex-shrink-0">1</div>
@@ -294,10 +281,8 @@ export default function KreasolusiClient() {
                             </div>
                         </div>
 
-                        {/* Divider */}
                         <div className="hidden md:block w-px bg-gray-200 dark:bg-gray-700 mx-2"></div>
 
-                        {/* Big Button */}
                         <div className="flex-1 flex flex-col justify-center">
                             <Link href="https://wa.me/6289524187347?text=Halo%20Admin,%20saya%20ingin%20booking%20Studio%20KreaSolusi" target="_blank" className="block w-full bg-green-600 text-white font-bold py-4 rounded-xl text-lg shadow-lg hover:bg-green-700 hover:shadow-green-500/30 transition transform hover:-translate-y-1 text-center">
                                 <i className="fab fa-whatsapp mr-2"></i> Booking Sekarang

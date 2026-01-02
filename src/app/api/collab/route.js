@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import pool from '@/lib/db';
 import cloudinary from '@/lib/cloudinary';
 
-// --- GET: Ambil Semua Data ---
 export async function GET() {
   try {
     const [rows] = await pool.query('SELECT * FROM collaborations ORDER BY date DESC');
@@ -12,12 +11,10 @@ export async function GET() {
   }
 }
 
-// --- POST: Tambah Data Baru ---
 export async function POST(request) {
   try {
     const formData = await request.formData();
     
-    // Ambil field text
     const title = formData.get('title');
     const category = formData.get('category');
     const caption = formData.get('caption');
@@ -29,7 +26,6 @@ export async function POST(request) {
 
     let imageUrl = null;
 
-    // Proses Upload Gambar ke Cloudinary (Jika ada)
     if (imageFile && typeof imageFile === 'object') {
         const bytes = await imageFile.arrayBuffer();
         const buffer = Buffer.from(bytes);
@@ -43,7 +39,6 @@ export async function POST(request) {
         imageUrl = uploadResult.secure_url;
     }
 
-    // Simpan ke MySQL
     const query = `
       INSERT INTO collaborations 
       (title, category, caption, detail, extra_1, extra_2, date, image) 

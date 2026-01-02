@@ -8,13 +8,11 @@ export default function AchievementsPreview() {
   return (
     <section className="py-10 bg-white dark:bg-gray-900 relative overflow-hidden transition-colors duration-300">
       
-      {/* Background Decor */}
       <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-gold opacity-5 dark:opacity-10 blur-3xl pointer-events-none"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col md:flex-row items-center gap-12">
           
-          {/* Left Content */}
           <div className="w-full md:w-1/2 text-center md:text-left">
             <FadeInUp>
                 <span className="inline-block py-1 px-3 rounded-full bg-yellow-50 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400 text-xs font-bold mb-4 border border-yellow-200 dark:border-yellow-800">
@@ -45,7 +43,6 @@ export default function AchievementsPreview() {
             </FadeInUp>
           </div>
 
-          {/* Right Content (Grid) */}
           <div className="w-full md:w-1/2">
             <StaggerContainer className="grid grid-cols-2 gap-4">
               

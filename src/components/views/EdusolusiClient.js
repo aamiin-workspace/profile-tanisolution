@@ -28,9 +28,7 @@ export default function EdusolusiClient() {
 
   return (
     <>
-      {/* Header */}
       <header className="pt-14 pb-12 bg-secondary text-white relative overflow-hidden">
-        {/* Animated Blob */}
         <motion.div 
             animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
             transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
@@ -52,7 +50,6 @@ export default function EdusolusiClient() {
         </div>
       </header>
 
-      {/* Program Section */}
       <section id="program" className="py-16 md:py-10 bg-white dark:bg-gray-900 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav className="flex mb-8 text-sm text-gray-500 dark:text-gray-400">
@@ -106,7 +103,6 @@ export default function EdusolusiClient() {
                 </div>
 
                 <div className="order-1 lg:order-2">
-                     {/* Staggered Grid for Images */}
                     <StaggerContainer className="grid grid-cols-2 gap-4">
                         {[
                             "/edusolusi/1.webp",
@@ -134,7 +130,6 @@ export default function EdusolusiClient() {
                 </div>
             </div>
 
-            {/* Impact Section */}
             <FadeInUp delay={0.4}>
                 <div className="bg-blueCustom rounded-2xl p-8 md:p-12 text-center text-white shadow-xl transform hover:scale-[1.01] transition duration-500">
                     <h3 className="text-2xl font-bold mb-8">Dampak Nyata Program</h3>
@@ -169,7 +164,6 @@ export default function EdusolusiClient() {
         </div>
       </section>
 
-      {/* Galeri Horizontal Scroll */}
       <section className="py-10 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
@@ -212,7 +206,6 @@ export default function EdusolusiClient() {
         </div>
       </section>
 
-      {/* --- FORM DONASI (NEW DESIGN) --- */}
       <section id="donasi" className="py-16 md:py-10 bg-white dark:bg-gray-900 transition-colors duration-300 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-blueCustom opacity-5 rounded-l-full blur-3xl -z-0 pointer-events-none"></div>
 
@@ -220,7 +213,6 @@ export default function EdusolusiClient() {
             <FadeInUp>
                 <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row border border-gray-100 dark:border-gray-700">
                     
-                    {/* Kolom Kiri: Ajakan Donasi */}
                     <div className="md:w-5/12 bg-blueCustom p-10 flex flex-col justify-center text-white relative overflow-hidden">
                         <div className="absolute top-0 left-0 w-32 h-32 bg-white opacity-10 rounded-full -mt-10 -ml-10"></div>
                         <div className="absolute bottom-0 right-0 w-40 h-40 bg-black opacity-10 rounded-full -mb-10 -mr-10"></div>
@@ -236,7 +228,6 @@ export default function EdusolusiClient() {
                         </ul>
                     </div>
 
-                    {/* Kolom Kanan: Form */}
                     <div className="md:w-7/12 p-8 md:p-12 bg-white dark:bg-gray-800">
                         <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-6">Isi Formulir Donasi</h3>
                         <form onSubmit={handleDonasi} className="space-y-5">
@@ -307,7 +298,6 @@ export default function EdusolusiClient() {
         </div>
       </section>
       
-      {/* Call to Action Mitra */}
       <section className="py-16 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 text-center transition-colors duration-300">
          <div className="max-w-4xl mx-auto px-4">
              <FadeInUp>
@@ -326,7 +316,6 @@ export default function EdusolusiClient() {
          </div>
       </section>
 
-      {/* MODAL IMAGE PREVIEW */}
       <AnimatePresence>
           {modalImage && (
             <motion.div 

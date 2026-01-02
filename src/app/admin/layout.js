@@ -40,7 +40,6 @@ export default function AdminLayout({ children }) {
         confirmText="Ya, Keluar"
       />
 
-      {/* --- SIDEBAR --- */}
       <aside className="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 hidden md:flex flex-col h-screen sticky top-0 transition-colors duration-300">
         <div className="h-16 flex items-center justify-center border-b border-gray-200 dark:border-gray-700">
           <h2 className="text-xl font-bold text-secondary dark:text-white">

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation'; // Pengganti useNavigate
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 export default function LoginPage() {
@@ -48,7 +48,6 @@ export default function LoginPage() {
     <div className="flex items-center justify-center min-h-screen bg-green-50 dark:bg-gray-900 transition-colors duration-300">
       <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-xl w-full max-w-md animate-fadeInUp border border-gray-100 dark:border-gray-700">
         
-        {/* Logo (Optional) */}
         <div className="flex justify-center mb-6">
             <div className="relative w-20 h-20">
                 <Image src="/tani.webp" alt="Logo" fill className="object-contain" />

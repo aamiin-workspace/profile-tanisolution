@@ -46,7 +46,6 @@ export default function DashboardPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 mb-8">
         
-        {/* Card Berita */}
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-gray-500 dark:text-gray-400 font-medium">Total Berita</h3>
@@ -56,7 +55,6 @@ export default function DashboardPage() {
           <Link href="/admin/berita" className="text-sm text-primary mt-2 inline-block hover:underline">Kelola Berita →</Link>
         </div>
 
-        {/* Card Kolaborasi */}
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-gray-500 dark:text-gray-400 font-medium">Kolaborasi</h3>
@@ -66,7 +64,6 @@ export default function DashboardPage() {
           <Link href="/admin/kolaborasi" className="text-sm text-primary mt-2 inline-block hover:underline">Kelola Program →</Link>
         </div>
 
-        {/* Card Penghargaan */}
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-gray-500 dark:text-gray-400 font-medium">Penghargaan</h3>
@@ -85,7 +82,6 @@ export default function DashboardPage() {
           <Link href="/admin/partners" className="text-sm text-primary mt-2 inline-block hover:underline">Kelola Mitra →</Link>
         </div>
 
-        {/* Card User */}
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-gray-500 dark:text-gray-400 font-medium">Admin Aktif</h3>

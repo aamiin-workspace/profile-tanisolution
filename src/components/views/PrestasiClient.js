@@ -18,7 +18,6 @@ export default function PrestasiClient({ initialData }) {
 
   return (
     <>
-      {/* --- HEADER SECTION --- */}
       <header className="pt-14 pb-12 bg-secondary text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-gold opacity-20 blur-3xl"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
@@ -35,7 +34,6 @@ export default function PrestasiClient({ initialData }) {
         </div>
       </header>
 
-      {/* --- HIGHLIGHT FUNDING (STATIC) --- */}
       <section className="py-10 bg-transparent -mt-8 relative z-20 max-w-6xl mx-auto px-4">
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 p-8 transition-colors duration-300">
           <div className="text-center mb-8">
@@ -59,7 +57,6 @@ export default function PrestasiClient({ initialData }) {
         </div>
       </section>
 
-      {/* --- SECTION 1: AWARDS (GRID) --- */}
       <section
         id="awards"
         className="py-16 md:py-10 bg-gray-50 dark:bg-gray-900 transition-colors duration-300"
@@ -121,7 +118,6 @@ export default function PrestasiClient({ initialData }) {
         </div>
       </section>
 
-      {/* --- SECTION 2: RISET (TIMELINE ZIG-ZAG OTOMATIS) --- */}
       <section
         id="riset"
         className="py-16 md:py-20 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 relative transition-colors duration-300"
@@ -204,7 +200,6 @@ export default function PrestasiClient({ initialData }) {
         </div>
       </section>
 
-      {/* --- MODAL POPUP --- */}
       {selectedImage && selectedImage.src && (
         <div
           className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity duration-300"

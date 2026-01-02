@@ -43,7 +43,6 @@ export default function TeknosolusiClient() {
 
   return (
     <>
-      {/* Header Section */}
       <header className="pt-14 pb-12 bg-secondary text-white relative overflow-hidden">
         <motion.div 
             animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
@@ -70,7 +69,6 @@ export default function TeknosolusiClient() {
         </div>
       </header>
 
-      {/* Product Detail Section */}
       <section id="product-detail" className="py-16 md:py-10 bg-white dark:bg-gray-900 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
@@ -84,7 +82,6 @@ export default function TeknosolusiClient() {
 
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             
-            {/* Gallery Image */}
             <div className="w-full lg:w-1/2">
               <FadeInUp delay={0.2}>
                 <div className="bg-accent dark:bg-gray-800 rounded-2xl p-6 shadow-inner mb-4 transition-colors relative w-full h-[400px]">
@@ -123,7 +120,6 @@ export default function TeknosolusiClient() {
               </FadeInUp>
             </div>
 
-            {/* Description */}
             <div className="w-full lg:w-1/2">
               <FadeInUp delay={0.4}>
                 <div className="inline-block bg-green-100 text-primary dark:bg-green-900/30 dark:text-green-400 px-3 py-1 rounded-full text-sm font-bold mb-4">
@@ -155,7 +151,6 @@ export default function TeknosolusiClient() {
                 ))}
               </div>
 
-              {/* Action Buttons */}
               <FadeInUp delay={0.8}>
                 <div className="flex flex-col gap-3">
                     <div className="flex flex-col sm:flex-row gap-4">
@@ -195,7 +190,6 @@ export default function TeknosolusiClient() {
         </div>
       </section>
 
-      {/* Process Section */}
       <section className="py-16 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
@@ -224,7 +218,6 @@ export default function TeknosolusiClient() {
         </div>
       </section>
 
-      {/* Reviews Section */}
       <section className="py-16 bg-white dark:bg-gray-900 relative overflow-hidden border-t border-gray-100 dark:border-gray-800 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
@@ -317,7 +310,6 @@ export default function TeknosolusiClient() {
         </div>
       </section>
 
-      {/* Footer Call to Action */}
       <section className="py-16 bg-primary text-white text-center">
         <div className="max-w-4xl mx-auto px-4">
             <FadeInUp>
@@ -335,7 +327,6 @@ export default function TeknosolusiClient() {
         </div>
       </section>
 
-      {/* Modal Fullscreen */}
       <AnimatePresence>
         {isModalOpen && (
             <motion.div 

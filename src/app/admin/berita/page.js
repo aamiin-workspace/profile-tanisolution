@@ -197,7 +197,6 @@ export default function BeritaManager() {
         )}
       </div>
 
-      {/* --- VIEW LIST --- */}
       {view === 'list' && (
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm text-gray-600 dark:text-gray-300">
@@ -245,7 +244,6 @@ export default function BeritaManager() {
         </div>
       )}
 
-      {/* --- VIEW FORM --- */}
       {view === 'form' && (
         <form onSubmit={handleSubmit} className="space-y-4 max-w-3xl mx-auto bg-gray-50 dark:bg-gray-700/50 p-6 rounded-lg border border-gray-200 dark:border-gray-600">
           <div>
