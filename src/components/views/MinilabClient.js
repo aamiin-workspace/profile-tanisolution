@@ -61,7 +61,7 @@ export default function MinilabClient() {
       desc: "Ekosistem tertutup dengan kontrol suhu, kelembaban, dan irigasi sprinkle otomatis untuk tanaman sensitif.",
       icon: "fa-temperature-high",
       color: "bg-pink-100 text-pink-600",
-      detail: "Rumah kaca pintar untuk Bunga Hias (Anggrek/Mawar).",
+      detail: "Rumah kaca pintar untuk Bunga Hias.",
     }
   ];
 

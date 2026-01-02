@@ -96,7 +96,7 @@ export default function KreasolusiClient() {
                     {/* IMAGE */}
                     <Image
                     src="/kreasolusi/studio.webp"
-                    alt="Studio KreaSolusi - Ruang Kreatif UMKM"
+                    alt="Studio KreaSolusi - Ruang Kreatif"
                     fill
                     priority
                     className="object-cover transition-transform duration-700 group-hover:scale-105"

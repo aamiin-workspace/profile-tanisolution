@@ -8,7 +8,7 @@ export default function About() {
           <h2 className="text-2xl md:text-3xl font-bold text-secondary dark:text-white">Tentang Kami</h2>
           <div className="w-16 h-1 bg-primary mx-auto mt-2"></div>
           <p className="mt-4 text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Tani Solution Indonesia merupakan start up manufaktur teknologi pertanian (agritech) yang berfokus pada produksi alat semi mekanisasi pertanian. Tani Solution Indonesia hadir dengan semangat untuk merevolusi sektor pertanian Indonesia melalui inovasi teknologi dan edukasi. Melalui pendekatan ini, kami ingin menciptakan ekosistem pertanian yang lebih modern, efisien, dan berkelanjutan.
+            PT Global Tani Solution (dikenal juga dengan Tani Solution Indonesia) merupakan start up manufaktur teknologi pertanian (agritech) yang berfokus pada produksi alat semi mekanisasi pertanian. Tani Solution Indonesia hadir dengan semangat untuk merevolusi sektor pertanian Indonesia melalui inovasi teknologi dan edukasi. Melalui pendekatan ini, kami ingin menciptakan ekosistem pertanian yang lebih modern, efisien, dan berkelanjutan.
           </p>
         </div>
 

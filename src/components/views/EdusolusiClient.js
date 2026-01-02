@@ -147,19 +147,19 @@ export default function EdusolusiClient() {
                         </div>
                         <div className="p-4">
                             <div className="text-4xl font-bold mb-2">
-                                <CountUp end={4} duration={2} enableScrollSpy />
+                                <CountUp end={131} duration={2} enableScrollSpy />+
                             </div>
                             <div className="text-blue-100">Penerima Beasiswa SD</div>
                         </div>
                         <div className="p-4">
                             <div className="text-4xl font-bold mb-2">
-                                <CountUp end={3} duration={2} enableScrollSpy />
+                                <CountUp end={4} duration={2} enableScrollSpy />
                             </div>
                             <div className="text-blue-100">Mitra Sekolah & Universitas</div>
                         </div>
                         <div className="p-4">
                             <div className="text-4xl font-bold mb-2">
-                                <CountUp end={999} duration={2} enableScrollSpy />
+                                <CountUp end={154} duration={2} enableScrollSpy />+
                             </div>
                             <div className="text-blue-100">Mahasiswa Berkolaborasi</div>
                         </div>
@@ -182,7 +182,7 @@ export default function EdusolusiClient() {
             <StaggerContainer className="flex overflow-x-auto gap-6 pb-8 -mx-4 px-4 snap-x snap-mandatory no-scrollbar md:grid md:grid-cols-3 md:overflow-visible md:mx-0 md:px-0">
                 {[
                     { title: "Kelas Edukasi", desc: "Pengenalan teori pertanian modern.", img: "/edusolusi/kelas.webp" },
-                    { title: "Praktik Lapangan", desc: "Belajar metode tanam langsung.", img: "/edusolusi/praktik.webp" },
+                    { title: "Praktik Lapangan", desc: "Belajar penggunaan alat semi mekanisasi pertanaian langsung.", img: "/edusolusi/praktik.webp" },
                     { title: "Riset & Kolaborasi", desc: "Kerjasama dengan universitas.", img: "/edusolusi/riset.webp" }
                 ].map((item, idx) => (
                     <StaggerItem key={idx} className="min-w-[80vw] md:min-w-0 snap-center px-0 h-full">
