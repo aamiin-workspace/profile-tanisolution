@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const baseUrl = "https://tanisolution.id";
+  const baseUrl = "https://www.tanisolution.id";
 
   return [
     { url: baseUrl, lastModified: new Date() },
@@ -7,5 +7,6 @@ export default function sitemap() {
     { url: `${baseUrl}/kolaborasi`, lastModified: new Date() },
     { url: `${baseUrl}/layanan`, lastModified: new Date() },
     { url: `${baseUrl}/tentang-kami`, lastModified: new Date() },
+    { url: `${baseUrl}/kontak`, lastModified: new Date() },
   ];
 }

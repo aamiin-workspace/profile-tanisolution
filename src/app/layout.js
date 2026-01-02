@@ -20,6 +20,13 @@ export const metadata = {
     "pupuk otomatis",
     "Global Tani Solution",
   ],
+
+  icons: {
+    icon: '/icon.png',
+    shortcut: '/icon.png',
+    apple: '/icon.png',
+  },
+
   openGraph: {
     title: "Global Tani Solution",
     description: "Solusi Teknologi Pertanian Masa Depan.",
