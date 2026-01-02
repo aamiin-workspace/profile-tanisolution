@@ -100,7 +100,7 @@ export default function KreasolusiClient() {
                     />
 
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col justify-end p-6">
-                    <h3 className="font-bold text-lg text-white">Ruang Kreatif UMKM</h3>
+                    <h3 className="font-bold text-lg text-white">Ruang Kreatif</h3>
                     <p className="text-sm text-gray-300">
                         Fasilitas lengkap untuk konten berkualitas.
                     </p>
