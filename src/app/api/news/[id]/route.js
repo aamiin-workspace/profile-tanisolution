@@ -1,27 +1,40 @@
 import { NextResponse } from 'next/server';
 import pool from '@/lib/db';
-import { writeFile, unlink } from 'fs/promises';
-import path from 'path';
+import { v2 as cloudinary } from 'cloudinary';
 
-async function deleteFile(fileUrl) {
-  if (!fileUrl) return;
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+async function deleteImageFromCloudinary(imageUrl) {
+  if (!imageUrl) return;
+
   try {
-    const fileName = fileUrl.split('/').pop();
-    const filePath = path.join(process.cwd(), 'public/uploads', fileName);
-    await unlink(filePath);
+    
+    const regex = /\/v\d+\/(.+)\.\w+$/;
+    const match = imageUrl.match(regex);
+    
+    if (match && match[1]) {
+      const publicId = match[1];
+      await cloudinary.uploader.destroy(publicId);
+    }
   } catch (error) {
-    console.log(`Info: File lama tidak ditemukan/sudah terhapus`);
+    console.error("Gagal menghapus gambar lama di Cloudinary:", error);
   }
 }
 
 export async function DELETE(request, { params }) {
   try {
-    const { id } = await params; 
+    const { id } = await params;
 
     const [rows] = await pool.query('SELECT image FROM news WHERE id = ?', [id]);
     if (rows.length === 0) return NextResponse.json({ message: 'Not found' }, { status: 404 });
 
-    if (rows[0].image) await deleteFile(rows[0].image);
+    if (rows[0].image) {
+      await deleteImageFromCloudinary(rows[0].image);
+    }
 
     await pool.query('DELETE FROM news WHERE id = ?', [id]);
 
@@ -33,7 +46,7 @@ export async function DELETE(request, { params }) {
 
 export async function PUT(request, { params }) {
   try {
-    const { id } = await params; 
+    const { id } = await params;
     const formData = await request.formData();
 
     const title = formData.get('title');
@@ -47,29 +60,41 @@ export async function PUT(request, { params }) {
     const isNewImage = image && typeof image === 'object' && image.size > 0;
 
     if (isNewImage) {
-        const [oldData] = await pool.query('SELECT image FROM news WHERE id = ?', [id]);
-        if (oldData.length > 0 && oldData[0].image) await deleteFile(oldData[0].image);
 
-        const bytes = await image.arrayBuffer();
-        const buffer = Buffer.from(bytes);
-        const fileName = `${Date.now()}-${image.name.replace(/\s/g, '-')}`;
-        const filePath = path.join(process.cwd(), 'public/uploads', fileName);
-        await writeFile(filePath, buffer);
-        const dbImagePath = `/uploads/${fileName}`;
+      const [oldData] = await pool.query('SELECT image FROM news WHERE id = ?', [id]);
+      
+      if (oldData.length > 0 && oldData[0].image) {
+        await deleteImageFromCloudinary(oldData[0].image);
+      }
 
-        await pool.query(
-            `UPDATE news SET title=?, category=?, author=?, date=?, excerpt=?, content=?, image=? WHERE id=?`,
-            [title, category, author, date, excerpt, content, dbImagePath, id]
-        );
+      const arrayBuffer = await image.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+
+      const newImageUrl = await new Promise((resolve, reject) => {
+        cloudinary.uploader.upload_stream(
+          { folder: 'tani-solution-news' },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result.secure_url);
+          }
+        ).end(buffer);
+      });
+
+      await pool.query(
+        `UPDATE news SET title=?, category=?, author=?, date=?, excerpt=?, content=?, image=? WHERE id=?`,
+        [title, category, author, date, excerpt, content, newImageUrl, id]
+      );
+
     } else {
-        await pool.query(
-            `UPDATE news SET title=?, category=?, author=?, date=?, excerpt=?, content=? WHERE id=?`,
-            [title, category, author, date, excerpt, content, id]
-        );
+      await pool.query(
+        `UPDATE news SET title=?, category=?, author=?, date=?, excerpt=?, content=? WHERE id=?`,
+        [title, category, author, date, excerpt, content, id]
+      );
     }
 
     return NextResponse.json({ message: 'Updated successfully' });
   } catch (error) {
+    console.error("Update Error:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
