@@ -100,7 +100,7 @@ export default function DetailBeritaClient({ news }) {
 
         <FadeInUp delay={0.5}>
           <div
-            className="prose prose-lg max-w-none text-gray-700 dark:text-gray-300 dark:prose-invert leading-relaxed"
+            className="prose prose-lg max-w-none text-gray-700 dark:text-gray-300 dark:prose-invert leading-relaxed text-justify"
             dangerouslySetInnerHTML={{ __html: news.content }}
           />
         </FadeInUp>
