@@ -15,7 +15,7 @@ export default function sitemap() {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/agritech`,
+      url: `${baseUrl}/minilab`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
@@ -33,34 +33,22 @@ export default function sitemap() {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/prestasi`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/berita`,
       lastModified: new Date(),
       changeFrequency: 'weekly', 
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/layanan`, 
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
       url: `${baseUrl}/kolaborasi`,
       lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/tentang-kami`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/kontak`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.5,
+      changeFrequency: 'monthly',
+      priority: 0.8,
     },
   ];
 }
