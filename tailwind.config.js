@@ -8,9 +8,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#388E3C', // Hijau Tani Solution
-        secondary: '#333333', // Dark Grey
-        accent: '#E8F5E9', // Light Green Background
+        primary: '#388E3C',
+        secondary: '#333333', 
+        accent: '#E8F5E9', 
         blueCustom: '#1E88E5', 
         gold: '#D4AF37',
       },

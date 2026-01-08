@@ -43,16 +43,45 @@ export const metadata = {
 export default function RootLayout({ children }) {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Global Tani Solution",
-    "alternateName": ["Tani Solution", "Tani Solution Indonesia"],
-    "url": "https://www.tanisolution.id/",
-    "description": "Inovasi Alat Pertanian Modern",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://www.tanisolution.id/search?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "Global Tani Solution",
+        "alternateName": ["Tani Solution", "Tani Solution Indonesia"],
+        "url": "https://www.tanisolution.id/",
+        "description": "Inovasi Alat Pertanian Modern",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.tanisolution.id/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "name": "Teknolusi",
+        "url": "https://www.tanisolution.id/teknolusi"
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "name": "Agritech",
+        "url": "https://www.tanisolution.id/agritech"
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "name": "Edusolusi",
+        "url": "https://www.tanisolution.id/edusolusi"
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "name": "Kreasolusi",
+        "url": "https://www.tanisolution.id/kreasolusi"
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "name": "Berita",
+        "url": "https://www.tanisolution.id/berita"
+      }
+    ]
   };
 
   return (
