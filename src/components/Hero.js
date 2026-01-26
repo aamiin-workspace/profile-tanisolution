@@ -34,7 +34,7 @@ export default function Hero({ latestNews = [] }) {
   return (
     <section
       id="home"
-      className="pt-28 pb-12 md:pt-24 md:pb-24 bg-accent dark:bg-gray-900 relative overflow-hidden transition-colors duration-300 min-h-[90vh] flex items-center"
+      className="pt-12 pb-12 md:pt-24 md:pb-24 bg-accent dark:bg-gray-900 relative overflow-hidden transition-colors duration-300 min-h-[90vh] flex items-center"
     >
       <motion.div
         animate={{
@@ -69,12 +69,6 @@ export default function Hero({ latestNews = [] }) {
               Menciptakan ekosistem pertanian yang lebih modern, efisien, dan
               berkelanjutan melalui inovasi alat semi mekanisasi.
             </p>
-          </FadeInUp>
-          
-          <FadeInUp delay={0.4}>
-             <Link href="/layanan" className="btn-primary hidden md:inline-flex">
-                Jelajahi Solusi
-             </Link>
           </FadeInUp>
         </div>
 
