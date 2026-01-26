@@ -1,12 +1,25 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import FadeInUp from "./utils/FadeInUp";
 
 export default function Hero({ latestNews = [] }) {
-  const imageSrc = "/hero.webp";
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (latestNews.length <= 1) return; 
+
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % latestNews.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [latestNews.length]);
+
+  const defaultImageSrc = "/hero.webp";
 
   const floatingAnimation = {
     y: [-15, 15, -15],
@@ -21,7 +34,7 @@ export default function Hero({ latestNews = [] }) {
   return (
     <section
       id="home"
-      className="pt-24 pb-12 md:pt-20 md:pb-24 bg-accent dark:bg-gray-900 relative overflow-hidden transition-colors duration-300"
+      className="pt-28 pb-12 md:pt-24 md:pb-24 bg-accent dark:bg-gray-900 relative overflow-hidden transition-colors duration-300 min-h-[90vh] flex items-center"
     >
       <motion.div
         animate={{
@@ -33,8 +46,9 @@ export default function Hero({ latestNews = [] }) {
         className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-primary blur-3xl z-0 pointer-events-none"
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col-reverse md:flex-row items-center gap-8 md:gap-16 relative z-10">
-        <div className="w-full md:w-1/2 text-center md:text-left">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-8 md:gap-12 relative z-10 w-full">
+        
+        <div className="w-full md:w-5/12 text-center md:text-left">
           <FadeInUp delay={0.1}>
             <span className="inline-block py-1 px-3 rounded-full bg-green-100 text-primary dark:bg-green-900/30 dark:text-green-400 text-sm font-semibold mb-4 border border-green-200 dark:border-green-800">
               Start-up Agritech Manufaktur
@@ -56,88 +70,106 @@ export default function Hero({ latestNews = [] }) {
               berkelanjutan melalui inovasi alat semi mekanisasi.
             </p>
           </FadeInUp>
+          
+          <FadeInUp delay={0.4}>
+             <Link href="/layanan" className="btn-primary hidden md:inline-flex">
+                Jelajahi Solusi
+             </Link>
+          </FadeInUp>
+        </div>
 
-          {/* --- BAGIAN BARU: HIGHLIGHT BERITA --- */}
-          {latestNews.length > 0 && (
-            <FadeInUp delay={0.4}>
-              <div className="mt-6">
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 text-center md:text-left">
-                  Update Terbaru
-                </p>
-                <div className="flex flex-col gap-3">
-                  {latestNews.map((news) => (
-                    <Link 
-                      key={news.id} 
-                      href={`/berita/${news.id}`}
-                      className="group block bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1"
-                    >
-                      <div className="flex items-center gap-4">
-                        {/* Thumbnail Kecil */}
-                        <div className="relative w-12 h-12 flex-shrink-0 rounded-lg overflow-hidden bg-gray-200">
-                          <Image
-                            src={news.image || '/placeholder.jpg'}
-                            alt={news.title}
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-                        {/* Judul & Kategori */}
-                        <div className="text-left">
-                          <span className="text-[10px] font-bold text-primary bg-green-50 dark:bg-green-900/20 px-2 py-0.5 rounded-full mb-1 inline-block">
-                            {news.category}
-                          </span>
-                          <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-200 group-hover:text-primary transition-colors line-clamp-1">
-                            {news.title}
-                          </h4>
-                        </div>
-                        {/* Panah Indikator */}
-                        <div className="ml-auto text-gray-300 group-hover:text-primary transition-colors">
-                          <i className="fas fa-arrow-right text-xs"></i>
+        <div className="w-full md:w-7/12 relative">
+          
+          {latestNews.length > 0 ? (
+            <div className="relative w-full">
+              <motion.div 
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                className="relative h-[400px] md:h-[500px] w-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-gray-700 group"
+              >
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentIndex}
+                    initial={{ opacity: 0, scale: 1.05 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="absolute inset-0 w-full h-full"
+                  >
+                    <Link href={`/berita/${latestNews[currentIndex].id}`} className="block w-full h-full relative cursor-pointer">
+                      
+                      <Image
+                        src={latestNews[currentIndex].image || '/placeholder.jpg'}
+                        alt={latestNews[currentIndex].title}
+                        fill
+                        priority
+                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-90" />
+
+                      <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 text-white z-10">
+                        <span className="inline-block bg-primary text-white text-xs font-bold px-2 py-1 rounded mb-2">
+                          {latestNews[currentIndex].category}
+                        </span>
+                        <h3 className="text-xl md:text-3xl font-bold leading-tight drop-shadow-md hover:text-green-400 transition-colors line-clamp-2">
+                          {latestNews[currentIndex].title}
+                        </h3>
+                        <div className="mt-2 flex items-center text-sm text-gray-300 font-medium">
+                           <span>Baca Selengkapnya</span>
+                           <i className="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                         </div>
                       </div>
                     </Link>
+                  </motion.div>
+                </AnimatePresence>
+
+                <div className="absolute bottom-6 right-6 z-20 flex space-x-2">
+                  {latestNews.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrentIndex(idx)}
+                      className={`h-2 rounded-full transition-all duration-300 ${
+                        idx === currentIndex ? "w-8 bg-primary" : "w-2 bg-white/50 hover:bg-white"
+                      }`}
+                      aria-label={`Go to slide ${idx + 1}`}
+                    />
                   ))}
                 </div>
+              </motion.div>
+
+              <div className="mt-6 flex justify-end">
+                 <Link href="/berita" className="group flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-primary transition-colors">
+                    Lihat Berita Lainnya
+                    <span className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
+                       <i className="fas fa-arrow-right"></i>
+                    </span>
+                 </Link>
               </div>
-            </FadeInUp>
-          )}
-          {/* --- AKHIR BAGIAN BERITA --- */}
 
-        </div>
-
-        <div className="w-full md:w-1/2 flex justify-center perspective-1000">
-          <motion.div
-            initial={{ opacity: 0, x: 50, rotateY: 10 }}
-            whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="relative w-full md:w-4/5"
-          >
+            </div>
+          ) : (
             <motion.div
-              animate={floatingAnimation}
-              className="relative h-64 sm:h-80 w-full rounded-2xl shadow-2xl overflow-hidden border-4 border-white dark:border-gray-700"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              className="relative w-full"
             >
-              <Image
-                src={imageSrc}
-                alt="Pertanian Modern"
-                fill
-                priority
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-cover"
-              />
+              <motion.div
+                animate={floatingAnimation}
+                className="relative h-64 sm:h-80 w-full rounded-2xl shadow-2xl overflow-hidden border-4 border-white dark:border-gray-700"
+              >
+                <Image
+                  src={defaultImageSrc}
+                  alt="Pertanian Modern"
+                  fill
+                  priority
+                  className="object-cover"
+                />
+              </motion.div>
             </motion.div>
+          )}
 
-            <motion.div
-              animate={{ y: [10, -10, 10] }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 1,
-              }}
-              className="absolute -bottom-6 -left-6 bg-yellow-400 w-20 h-20 rounded-full blur-2xl opacity-40 z-[-1]"
-            ></motion.div>
-          </motion.div>
         </div>
       </div>
     </section>

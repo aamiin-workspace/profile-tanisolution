@@ -23,7 +23,7 @@ async function getLatestNews() {
       SELECT id, title, category, image, date 
       FROM news 
       ORDER BY date DESC 
-      LIMIT 3
+      LIMIT 4
     `);
     
     return rows.map(row => ({
