@@ -10,19 +10,35 @@ export const dynamic = 'force-dynamic';
 export const metadata = {
   title: 'Tani Solution Indonesia | Inovasi Alat Pertanian Modern',
   description: 'Pusat solusi teknologi pertanian (Agritech), magang industri, dan kolaborasi riset di Indonesia. Produsen alat pemupukan modern.',
-  keywords: ['pertanian', 'agritech', 'magang smk', 'alat pertanian', 'tani solution', 'pupuk otomatis'], // Tambahkan ini
+  keywords: ['pertanian', 'agritech', 'magang smk', 'alat pertanian', 'tani solution', 'pupuk otomatis'],
   openGraph: {
     title: 'Tani Solution Indonesia',
     description: 'Solusi Teknologi Pertanian Masa Depan.',
   },
 };
 
+async function getLatestNews() {
+  try {
+    const [rows] = await pool.query(`
+      SELECT id, title, category, image, date 
+      FROM news 
+      ORDER BY date DESC 
+      LIMIT 3
+    `);
+    
+    return rows.map(row => ({
+      ...row,
+      date: row.date.toISOString(),
+    }));
+  } catch (error) {
+    console.error("Gagal ambil berita hero:", error);
+    return [];
+  }
+}
+
 async function getPartners() {
   try {
     const [rows] = await pool.query('SELECT * FROM partners ORDER BY created_at ASC');
-    
-    console.log("Data Partners dari DB:", rows); 
-    
     return rows.map(row => ({
       ...row,
       created_at: row.created_at.toString(),
@@ -34,11 +50,14 @@ async function getPartners() {
 }
 
 export default async function HomePage() {
-  const partnersData = await getPartners();
+  const [partnersData, latestNewsData] = await Promise.all([
+    getPartners(),
+    getLatestNews()
+  ]);
 
   return (
     <>
-      <Hero />
+      <Hero latestNews={latestNewsData} />
       <About />
       <AchievementsPreview />
       <Partners partners={partnersData} />    

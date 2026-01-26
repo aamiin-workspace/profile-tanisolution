@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import FadeInUp from "./utils/FadeInUp";
 
-export default function Hero() {
+export default function Hero({ latestNews = [] }) {
   const imageSrc = "/hero.webp";
 
   const floatingAnimation = {
@@ -55,6 +56,53 @@ export default function Hero() {
               berkelanjutan melalui inovasi alat semi mekanisasi.
             </p>
           </FadeInUp>
+
+          {/* --- BAGIAN BARU: HIGHLIGHT BERITA --- */}
+          {latestNews.length > 0 && (
+            <FadeInUp delay={0.4}>
+              <div className="mt-6">
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 text-center md:text-left">
+                  Update Terbaru
+                </p>
+                <div className="flex flex-col gap-3">
+                  {latestNews.map((news) => (
+                    <Link 
+                      key={news.id} 
+                      href={`/berita/${news.id}`}
+                      className="group block bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1"
+                    >
+                      <div className="flex items-center gap-4">
+                        {/* Thumbnail Kecil */}
+                        <div className="relative w-12 h-12 flex-shrink-0 rounded-lg overflow-hidden bg-gray-200">
+                          <Image
+                            src={news.image || '/placeholder.jpg'}
+                            alt={news.title}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        {/* Judul & Kategori */}
+                        <div className="text-left">
+                          <span className="text-[10px] font-bold text-primary bg-green-50 dark:bg-green-900/20 px-2 py-0.5 rounded-full mb-1 inline-block">
+                            {news.category}
+                          </span>
+                          <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-200 group-hover:text-primary transition-colors line-clamp-1">
+                            {news.title}
+                          </h4>
+                        </div>
+                        {/* Panah Indikator */}
+                        <div className="ml-auto text-gray-300 group-hover:text-primary transition-colors">
+                          <i className="fas fa-arrow-right text-xs"></i>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </FadeInUp>
+          )}
+          {/* --- AKHIR BAGIAN BERITA --- */}
+
         </div>
 
         <div className="w-full md:w-1/2 flex justify-center perspective-1000">
