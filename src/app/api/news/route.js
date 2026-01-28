@@ -9,6 +9,15 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+function createSlug(title) {
+  return title
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 async function checkAuth(req) {
   const token = req.cookies.get('token')?.value;
   if (!token) throw new Error('Unauthorized');
@@ -39,10 +48,11 @@ export async function POST(req) {
     const content = formData.get('content');
     const imageFile = formData.get('image');
 
+    const slug = createSlug(title);
+
     let imageUrl = null; 
 
     if (imageFile && imageFile.size > 0) {
-      
       const arrayBuffer = await imageFile.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
 
@@ -61,16 +71,21 @@ export async function POST(req) {
     }
 
     const query = `
-      INSERT INTO news (title, category, author, date, excerpt, content, image) 
-      VALUES (?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO news (title, slug, category, author, date, excerpt, content, image) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
-    const [result] = await pool.query(query, [title, category, author, date, excerpt, content, imageUrl]);
+    const [result] = await pool.query(query, [title, slug, category, author, date, excerpt, content, imageUrl]);
 
-    return NextResponse.json({ message: 'News created', id: result.insertId });
+    return NextResponse.json({ message: 'News created', id: result.insertId, slug: slug });
 
   } catch (error) {
     console.error("Error creating news:", error); 
+    
+    if (error.code === 'ER_DUP_ENTRY') {
+        return NextResponse.json({ error: "Judul berita ini sudah ada (Slug duplikat). Harap ganti judul." }, { status: 400 });
+    }
+
     const status = error.message === 'Unauthorized' ? 401 : 500;
     return NextResponse.json({ error: error.message }, { status });
   }

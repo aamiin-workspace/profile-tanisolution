@@ -1,31 +1,27 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import FadeInUp from '@/components/utils/FadeInUp';
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import FadeInUp from "@/components/utils/FadeInUp";
 
 export default function DetailBeritaClient({ news }) {
-
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('id-ID', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
+    return new Date(dateString).toLocaleDateString("id-ID", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
     });
   };
 
-  const [shareUrl, setShareUrl] = useState('');
-  const [canShare, setCanShare] = useState(false);
+  const [shareUrl, setShareUrl] = useState(() =>
+    typeof window !== "undefined" ? window.location.href : "",
+  );
+  const [canShare, setCanShare] = useState(() =>
+    typeof window !== "undefined" ? !!navigator.share : false,
+  );
   const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setShareUrl(window.location.href);
-      setCanShare(!!navigator.share);
-    }
-  }, []);
 
   useEffect(() => {
     if (copied) {
@@ -39,14 +35,13 @@ export default function DetailBeritaClient({ news }) {
       await navigator.clipboard.writeText(shareUrl);
       setCopied(true);
     } catch (_) {
-      alert('Gagal menyalin link');
+      alert("Gagal menyalin link");
     }
   };
 
   return (
     <div className="pt-14 pb-16 bg-white dark:bg-gray-900 min-h-screen transition-colors duration-300">
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-
         <FadeInUp>
           <div className="mb-6">
             <Link
@@ -89,7 +84,7 @@ export default function DetailBeritaClient({ news }) {
         <FadeInUp delay={0.4}>
           <div className="mb-10 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 relative h-[300px] md:h-[500px] w-full">
             <Image
-              src={news.image || '/placeholder.jpg'}
+              src={news.image || "/placeholder.jpg"}
               alt={news.title}
               fill
               priority
@@ -112,7 +107,6 @@ export default function DetailBeritaClient({ news }) {
             </h4>
 
             <div className="flex flex-wrap gap-4 items-center">
-
               {canShare && (
                 <motion.button
                   whileHover={{ y: -3 }}
@@ -137,12 +131,12 @@ export default function DetailBeritaClient({ news }) {
                 onClick={handleCopyLink}
                 className={`w-10 h-10 rounded-full flex items-center justify-center transition ${
                   copied
-                    ? 'bg-green-600 text-white'
-                    : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:opacity-80'
+                    ? "bg-green-600 text-white"
+                    : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:opacity-80"
                 }`}
                 title="Salin Link"
               >
-                <i className={`fas ${copied ? 'fa-check' : 'fa-link'}`}></i>
+                <i className={`fas ${copied ? "fa-check" : "fa-link"}`}></i>
               </motion.button>
 
               <motion.a
@@ -159,7 +153,7 @@ export default function DetailBeritaClient({ news }) {
               <motion.a
                 whileHover={{ y: -3 }}
                 href={`https://wa.me/?text=${encodeURIComponent(
-                  news.title
+                  news.title,
                 )}%20${shareUrl}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -172,7 +166,7 @@ export default function DetailBeritaClient({ news }) {
               <motion.a
                 whileHover={{ y: -3 }}
                 href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                  news.title
+                  news.title,
                 )}&url=${shareUrl}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -181,7 +175,6 @@ export default function DetailBeritaClient({ news }) {
               >
                 <i className="fab fa-twitter"></i>
               </motion.a>
-
             </div>
 
             {copied && (
@@ -191,7 +184,6 @@ export default function DetailBeritaClient({ news }) {
             )}
           </div>
         </FadeInUp>
-
       </article>
     </div>
   );

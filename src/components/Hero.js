@@ -91,7 +91,7 @@ export default function Hero({ latestNews = [] }) {
                     transition={{ duration: 0.5 }}
                     className="absolute inset-0 w-full h-full"
                   >
-                    <Link href={`/berita/${latestNews[currentIndex].id}`} className="block w-full h-full relative cursor-pointer">
+                    <Link href={`/berita/${latestNews[currentIndex].slug}`} className="block w-full h-full relative cursor-pointer">
                       
                       <Image
                         src={latestNews[currentIndex].image || '/placeholder.jpg'}

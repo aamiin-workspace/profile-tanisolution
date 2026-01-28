@@ -83,7 +83,7 @@ export default async function BeritaPage() {
                             </div>
                             
                             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 leading-tight group-hover:text-green-600 transition-colors">
-                                <Link href={`/berita/${item.id}`}>
+                                <Link href={`/berita/${item.slug}`}>
                                     {item.title}
                                 </Link>
                             </h3>
@@ -94,7 +94,7 @@ export default async function BeritaPage() {
 
                             <div className="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700">
                                 <Link 
-                                  href={`/berita/${item.id}`} 
+                                  href={`/berita/${item.slug}`} 
                                   className="inline-flex items-center text-green-600 dark:text-green-400 font-bold text-sm hover:text-green-800 dark:hover:text-green-300 transition-colors"
                                 >
                                     Baca Selengkapnya 

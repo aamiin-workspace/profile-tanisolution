@@ -1,19 +1,20 @@
-'use client'; 
+"use client";
 
-import { useState } from 'react';
-import Image from 'next/image';
+import { useState } from "react";
+import Image from "next/image";
 
 export default function ImageFallback({ src, alt, className }) {
   const [error, setError] = useState(false);
 
-  const imageSource = (error || !src) ? '/placeholder.jpg' : src;
+  const imageSource = error || !src ? "/placeholder.jpg" : src;
 
   return (
-    <img
+    <Image
       src={imageSource}
       alt={alt}
       className={className}
-      onError={() => setError(true)} 
+      fill
+      onError={() => setError(true)}
     />
   );
 }

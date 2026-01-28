@@ -2,9 +2,12 @@ import pool from '@/lib/db';
 import { notFound } from 'next/navigation';
 import DetailBeritaClient from '@/components/views/DetailBeritaClient';
 
-async function getNewsDetail(id) {
+async function getNewsDetail(slug) {
   try {
-    const [rows] = await pool.query('SELECT * FROM news WHERE id = ?', [id]);
+    const [rows] = await pool.query('SELECT * FROM news WHERE slug = ?', [slug]);
+
+    console.log(`Mencari slug: ${slug}, Hasil: ${rows.length} data`);
+
     if (rows.length === 0) return null;
     
     return {
@@ -20,8 +23,8 @@ async function getNewsDetail(id) {
 }
 
 export async function generateMetadata({ params }) {
-  const { id } = await params; 
-  const news = await getNewsDetail(id);
+  const { slug } = await params; 
+  const news = await getNewsDetail(slug);
   
   if (!news) {
     return { 
@@ -36,7 +39,7 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: news.title,
       description: news.excerpt,
-      url: `https://www.tanisolution.id/berita/${id}`,
+      url: `https://www.tanisolution.id/berita/${slug}`,
       siteName: 'Global Tani Solution',
       images: [
         {
@@ -60,8 +63,8 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function DetailBeritaPage({ params }) {
-  const { id } = await params;
-  const news = await getNewsDetail(id);
+  const { slug } = await params;
+  const news = await getNewsDetail(slug);
 
   if (!news) {
     notFound();

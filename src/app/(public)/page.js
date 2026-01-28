@@ -20,7 +20,7 @@ export const metadata = {
 async function getLatestNews() {
   try {
     const [rows] = await pool.query(`
-      SELECT id, title, category, image, date 
+      SELECT id, slug, title, category, image, date 
       FROM news 
       ORDER BY date DESC 
       LIMIT 4
