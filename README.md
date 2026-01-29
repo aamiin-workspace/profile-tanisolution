@@ -15,6 +15,8 @@ Proyek ini adalah website responsif yang menampilkan informasi perusahaan, layan
 - **Animasi**: Menggunakan Framer Motion untuk animasi halus.
 - **Upload Gambar**: Integrasi dengan Cloudinary untuk penyimpanan dan pengelolaan gambar.
 - **Keamanan**: Autentikasi menggunakan JWT dengan bcrypt untuk hashing password.
+- **Navigasi Pintar**: Highlighting otomatis pada menu navigasi berdasarkan halaman aktif.
+- **Optimasi Kode**: Kode bersih dengan ESLint yang telah diperbaiki untuk performa optimal.
 
 ## Tech Stack
 
@@ -64,7 +66,6 @@ Proyek ini adalah website responsif yang menampilkan informasi perusahaan, layan
    ```
 
 4. **Setup database**:
-
    - Buat database MySQL baru
    - Jalankan script SQL untuk membuat tabel (jika ada, atau gunakan migration)
 
