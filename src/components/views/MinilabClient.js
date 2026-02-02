@@ -66,11 +66,7 @@ export default function MinilabClient() {
   return (
     <>
       <header className="pt-14 pb-16 bg-teal-900 text-white relative overflow-hidden">
-        <motion.div
-          animate={{ scale: [1, 1.1, 1], rotate: [0, 20, 0] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-teal-500 opacity-20 blur-3xl"
-        ></motion.div>
+        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-teal-500 opacity-20 blur-3xl"></div>
 
         <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
           <FadeInUp>
