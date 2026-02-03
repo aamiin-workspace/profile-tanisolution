@@ -8,8 +8,14 @@ async function getNewsDetail(slug) {
 
     if (rows.length === 0) return null;
 
+    await pool.query(
+        'UPDATE news SET views = COALESCE(views, 0) + 1 WHERE id = ?', 
+        [rows[0].id]
+    );
+
     return {
       ...rows[0],
+      views: (rows[0].views || 0) + 1,
       date: rows[0].date.toISOString(),
       created_at: rows[0].created_at.toISOString(),
       updated_at: rows[0].updated_at ? rows[0].updated_at.toISOString() : rows[0].created_at.toISOString()
@@ -43,8 +49,8 @@ async function getPopularNews(currentSlug) {
 
 export async function generateMetadata({ params }) {
   const { slug } = await params; 
-  const news = await getNewsDetail(slug);
-  
+  const news = await getNewsDetail(slug); 
+
   if (!news) {
     return { 
         title: 'Berita Tidak Ditemukan',
