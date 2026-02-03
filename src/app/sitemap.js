@@ -7,21 +7,22 @@ export default async function sitemap() {
 
   let dynamicNews = [];
   try {
-    const [rows] = await pool.query('SELECT id, slug, updated_at, created_at FROM news');
+    const [rows] = await pool.query('SELECT id, slug, date, created_at FROM news');
     
-    console.log(`✅ Sitemap: Ditemukan ${rows.length} berita di database.`); 
+    console.log(`✅ Sitemap: Ditemukan ${rows.length} berita di database.`);
 
     dynamicNews = rows.map((item) => ({
       url: `${baseUrl}/berita/${item.slug || item.id}`, 
-      lastModified: new Date(item.updated_at || item.created_at || new Date()),
+      
+      lastModified: new Date(item.date || item.created_at || new Date()),
+      
       changeFrequency: 'weekly',
       priority: 0.6,
     }));
   } catch (error) {
-    console.error("Gagal mengambil data sitemap (Cek Koneksi DB):", error);
+    console.error("Gagal mengambil data sitemap (Cek Koneksi/Query DB):", error.message);
   }
 
-  // 2. HALAMAN STATIS
   const staticRoutes = [
     {
       url: baseUrl,
