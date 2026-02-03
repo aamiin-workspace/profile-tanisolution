@@ -1,20 +1,24 @@
 import pool from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 export default async function sitemap() {
   const baseUrl = "https://www.tanisolution.id";
 
   let dynamicNews = [];
   try {
-    const [rows] = await pool.query('SELECT slug, updated_at, created_at FROM news');
+    const [rows] = await pool.query('SELECT id, slug, updated_at, created_at FROM news');
     
+    console.log(`✅ Sitemap: Ditemukan ${rows.length} berita di database.`); 
+
     dynamicNews = rows.map((item) => ({
-      url: `${baseUrl}/berita/${item.slug}`, 
-      lastModified: new Date(item.updated_at || item.created_at),
+      url: `${baseUrl}/berita/${item.slug || item.id}`, 
+      lastModified: new Date(item.updated_at || item.created_at || new Date()),
       changeFrequency: 'weekly',
       priority: 0.6,
     }));
   } catch (error) {
-    console.error("Gagal mengambil data sitemap:", error);
+    console.error("Gagal mengambil data sitemap (Cek Koneksi DB):", error);
   }
 
   // 2. HALAMAN STATIS
@@ -58,7 +62,7 @@ export default async function sitemap() {
     {
       url: `${baseUrl}/berita`, 
       lastModified: new Date(),
-      changeFrequency: 'weekly', 
+      changeFrequency: 'daily',
       priority: 0.7,
     },
     {
