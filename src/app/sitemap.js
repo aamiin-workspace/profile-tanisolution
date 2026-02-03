@@ -5,10 +5,10 @@ export default async function sitemap() {
 
   let dynamicNews = [];
   try {
-    const [rows] = await pool.query('SELECT id, updated_at, created_at FROM news');
+    const [rows] = await pool.query('SELECT slug, updated_at, created_at FROM news');
     
     dynamicNews = rows.map((item) => ({
-      url: `${baseUrl}/berita/${item.id}`, 
+      url: `${baseUrl}/berita/${item.slug}`, 
       lastModified: new Date(item.updated_at || item.created_at),
       changeFrequency: 'weekly',
       priority: 0.6,
@@ -26,7 +26,7 @@ export default async function sitemap() {
       priority: 1,
     },
     {
-      url: `${baseUrl}/teknolusi`,
+      url: `${baseUrl}/teknosolusi`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
