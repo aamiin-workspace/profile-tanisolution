@@ -195,7 +195,7 @@ export default function TeknosolusiClient() {
                       Sekarang
                     </motion.a>
                     <motion.a
-                      href="https://shopee.co.id/primegarden_"
+                      href="https://shopee.co.id/tanisolutionindonesia"
                       target="_blank"
                       rel="noreferrer"
                       whileHover={{ scale: 1.05 }}
@@ -359,7 +359,7 @@ export default function TeknosolusiClient() {
           <FadeInUp delay={0.5}>
             <div className="text-center">
               <motion.a
-                href="https://shopee.co.id/primegarden_"
+                href="https://shopee.co.id/tanisolutionindonesia"
                 target="_blank"
                 rel="noreferrer"
                 whileHover={{ scale: 1.05 }}
@@ -370,7 +370,7 @@ export default function TeknosolusiClient() {
                 di Shopee
               </motion.a>
               <p className="text-xs text-gray-400 mt-3">
-                *Review asli diambil dari toko Shopee Prime Garden
+                *Review asli diambil dari toko Shopee Tani Solution Indonesia
               </p>
             </div>
           </FadeInUp>
