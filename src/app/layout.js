@@ -1,10 +1,19 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import FloatingContact from "@/components/utils/FloatingContact";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   metadataBase: new URL('https://www.tanisolution.id'),
+  
+  alternates: {
+    canonical: '/',
+  },
+
   title: {
     default: "Global Tani Solution | Inovasi Alat Pertanian Modern",
     template: "%s | Global Tani Solution",
@@ -33,6 +42,7 @@ export const metadata = {
     siteName: "Global Tani Solution",
     type: "website",
     locale: "id_ID",
+    url: "https://www.tanisolution.id",
   },
   
   verification: {
@@ -59,12 +69,12 @@ export default function RootLayout({ children }) {
       {
         "@type": "SiteNavigationElement",
         "name": "Teknolusi",
-        "url": "https://www.tanisolution.id/teknolusi"
+        "url": "https://www.tanisolution.id/teknosolusi"
       },
       {
         "@type": "SiteNavigationElement",
         "name": "Agritech",
-        "url": "https://www.tanisolution.id/agritech"
+        "url": "https://www.tanisolution.id/minilab"
       },
       {
         "@type": "SiteNavigationElement",
@@ -85,7 +95,7 @@ export default function RootLayout({ children }) {
   };
 
   return (
-    <html lang="id">
+    <html lang="id" className="scroll-smooth">
       <head>
         <link
           rel="stylesheet"
@@ -96,8 +106,16 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.className} bg-gray-50 text-gray-700 font-sans`}>
-        {children}
+      <body className={`${inter.className} bg-gray-50 text-gray-700 font-sans flex flex-col min-h-screen`}>
+        
+        <Navbar />
+
+        <main className="flex-grow">
+          {children}
+        </main>
+        <FloatingContact />
+        <Footer />
+        
       </body>
     </html>
   );

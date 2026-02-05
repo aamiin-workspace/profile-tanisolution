@@ -9,7 +9,7 @@ export default async function sitemap() {
   try {
     const [rows] = await pool.query('SELECT id, slug, date, created_at FROM news');
     
-    console.log(`✅ Sitemap: Ditemukan ${rows.length} berita di database.`);
+    console.log(`Sitemap: Ditemukan ${rows.length} berita di database.`);
 
     dynamicNews = rows.map((item) => ({
       url: `${baseUrl}/berita/${item.slug || item.id}`, 
