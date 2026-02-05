@@ -61,6 +61,9 @@ export async function generateMetadata({ params }) {
   return {
     title: `${news.title} | Tani Solution`,
     description: news.excerpt || news.content?.substring(0, 150),
+    alternates: {
+      canonical: fullUrl,
+    },
     openGraph: {
       title: news.title,
       description: news.excerpt,
