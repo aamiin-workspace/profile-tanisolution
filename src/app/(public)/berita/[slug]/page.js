@@ -51,6 +51,8 @@ export async function generateMetadata({ params }) {
   const { slug } = await params; 
   const news = await getNewsDetail(slug); 
 
+  const fullUrl = `https://www.tanisolution.id/berita/${slug}`;
+
   if (!news) {
     return { 
         title: 'Berita Tidak Ditemukan',
@@ -67,7 +69,7 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: news.title,
       description: news.excerpt,
-      url: `https://www.tanisolution.id/berita/${slug}`,
+      url: fullUrl,
       siteName: 'Global Tani Solution',
       images: [{ url: news.image || '/hero.webp', width: 800, height: 600, alt: news.title }],
       type: 'article',

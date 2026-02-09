@@ -80,3 +80,14 @@ body {
 .hover-lift:hover {
   transform: translateY(-3px) scale(1.02);
 }
+
+/* Sembunyikan Scrollbar untuk Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* Sembunyikan Scrollbar untuk IE, Edge and Firefox */
+.scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}

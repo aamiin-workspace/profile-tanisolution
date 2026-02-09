@@ -4,6 +4,29 @@ import { jwtVerify } from 'jose';
 export async function middleware(request) {
   const { pathname } = request.nextUrl;
   const method = request.method;
+  const isMaintenanceMode = process.env.MAINTENANCE_MODE === 'true';
+  const isMaintenancePage = pathname === '/maintenance';
+  
+  const hasBypassCookie = request.cookies.get('maintenance_bypass');
+
+  if (request.nextUrl.searchParams.get('admin') === 'true') {
+    const url = new URL(request.url);
+    url.searchParams.delete('admin');
+    
+    const response = NextResponse.redirect(url);
+    response.cookies.set('maintenance_bypass', 'true', { httpOnly: true, maxAge: 3600 }); // Berlaku 1 jam
+    return response;
+  }
+
+  if (isMaintenanceMode) {
+    if (!hasBypassCookie && !isMaintenancePage) {
+      return NextResponse.rewrite(new URL('/maintenance', request.url));
+    }
+  }
+
+  if (!isMaintenanceMode && isMaintenancePage) {
+    return NextResponse.redirect(new URL('/', request.url));
+  }
 
   const isLoginPage = pathname === '/admin/login';
   const isAdminPage = pathname.startsWith('/admin');
@@ -18,7 +41,7 @@ export async function middleware(request) {
         try {
             const secret = new TextEncoder().encode(process.env.JWT_SECRET);
             await jwtVerify(token, secret);
-            return NextResponse.redirect(new URL('/admin', request.url)); // atau /admin/partners
+            return NextResponse.redirect(new URL('/admin', request.url)); 
         } catch (e) {
         }
     }

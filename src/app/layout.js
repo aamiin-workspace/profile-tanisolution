@@ -1,10 +1,6 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import FloatingContact from "@/components/utils/FloatingContact";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -23,11 +19,17 @@ export const metadata = {
   keywords: [
     "pertanian",
     "agritech",
-    "magang smk",
     "alat pertanian",
     "tani solution",
     "pupuk otomatis",
     "Global Tani Solution",
+    "teknologi pertanian",
+    "edusolusi",
+    "teknosolusi",
+    "kreasolusi",
+    "minilab",
+    "alat tabur pupuk",
+    "alburdat",
   ],
 
   icons: {
@@ -107,15 +109,10 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={`${inter.className} bg-gray-50 text-gray-700 font-sans flex flex-col min-h-screen`}>
-        
-        <Navbar />
 
         <main className="flex-grow">
           {children}
         </main>
-        <FloatingContact />
-        <Footer />
-        
       </body>
     </html>
   );
