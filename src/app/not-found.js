@@ -1,6 +1,4 @@
 import Link from 'next/link';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 
 export const metadata = {
   title: '404 - Halaman Tidak Ditemukan | Tani Solution',
@@ -9,8 +7,6 @@ export const metadata = {
 export default function NotFound() {
   return (
     <>
-      <Navbar />
-
       <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 pt-16 transition-colors duration-300">
         <div className="text-center px-4">
           
@@ -31,8 +27,6 @@ export default function NotFound() {
           </Link>
         </div>
       </div>
-
-      <Footer />
     </>
   );
 }

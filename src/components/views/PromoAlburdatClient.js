@@ -20,7 +20,7 @@ export default function PromoAlburdatClient() {
             </h1>
             
             <div className="mt-4 space-y-2">
-                <FeatureCheck text="Bahan Anti Karat (Kuat & Ringan)" />
+                <FeatureCheck text="Bahan Besi Galvanis Anti Karat (Kuat & Ringan)" />
                 <FeatureCheck text="Kapasitas Tas Pupuk 15-20 Kg sekali isi" />
                 <FeatureCheck text="Bisa untuk Jagung, Kedelai, Kacang Hijau" />
                 <FeatureCheck text="Tersedia Paket Hemat & Eceran" />

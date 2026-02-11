@@ -46,7 +46,7 @@ export default function Footer() {
                 </a>
                 
                 <a 
-                    href="https://tiktok.com/@bisnispetani" 
+                    href="https://tiktok.com/@tanisolution.id" 
                     target="_blank" 
                     rel="noreferrer" 
                     className="text-gray-400 hover:text-white dark:hover:text-green-400 transition transform hover:scale-110"
