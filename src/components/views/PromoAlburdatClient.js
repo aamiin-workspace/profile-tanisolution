@@ -21,8 +21,8 @@ export default function PromoAlburdatClient() {
             
             <div className="mt-4 space-y-2">
                 <FeatureCheck text="Bahan Besi Galvanis Anti Karat (Kuat & Ringan)" />
-                <FeatureCheck text="Kapasitas Tas Pupuk 15-20 Kg sekali isi" />
-                <FeatureCheck text="Bisa untuk Jagung, Kedelai, Kacang Hijau" />
+                <FeatureCheck text="Kapasitas Tas Pupuk 10+ Kg sekali isi" />
+                <FeatureCheck text="Bisa untuk Jagung, Kedelai, Kacang Hijau, dll" />
                 <FeatureCheck text="Tersedia Paket Hemat & Eceran" />
             </div>
         </div>
@@ -54,6 +54,44 @@ export default function PromoAlburdatClient() {
             />
         </div>
 
+        <div className="bg-gray-50 p-6 pb-6 border-t border-gray-200 text-sm text-gray-700">
+            <h3 className="font-bold text-gray-900 mb-4 uppercase tracking-wide border-b border-gray-300 pb-2">
+                Syarat & Ketentuan
+            </h3>
+            
+            <p className="mb-4 text-gray-600 leading-relaxed">
+                Selamat datang di toko resmi kami. Dengan melakukan pembelian di toko kami, Anda dianggap telah membaca, memahami, dan menyetujui syarat dan ketentuan di bawah ini:
+            </p>
+
+            <ul className="list-disc pl-5 space-y-2 mb-6">
+                <li>
+                    <strong>Spesifikasi Produk:</strong> Setiap produk yang dikirim sesuai dengan deskripsi yang tertera di halaman ini.
+                </li>
+                <li>
+                    <strong>Jadwal Pengiriman:</strong> Pesanan diproses Senin-Jumat. Order yang masuk setelah pukul <strong>15.00 WIB</strong> akan dikirim pada hari kerja berikutnya.
+                </li>
+                <li>
+                    <strong>Kondisi Retur:</strong> Barang harus dalam keadaan baru, bersih, dan kemasan lengkap saat dikembalikan.
+                </li>
+                <li className="text-red-600 font-medium">
+                    <strong>Wajib Video Unboxing:</strong> Segala bentuk komplain tanpa menyertakan video unboxing (buka paket) tidak dapat kami layani.
+                </li>
+            </ul>
+
+            <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                <p className="font-bold text-gray-800 mb-1">Butuh Bantuan?</p>
+                <p className="text-xs text-gray-500 mb-2">
+                    Silakan hubungi admin via chat jika mengalami kesulitan dalam perakitan atau penggunaan alat.
+                </p>
+                <a 
+                    href="https://wa.me/62895429640790" 
+                    className="inline-flex items-center text-green-600 font-bold hover:text-green-700 transition"
+                >
+                    <i className="fab fa-whatsapp text-lg mr-2"></i> Admin CS: 0895-4296-40790
+                </a>
+            </div>
+        </div>
+
         <div id="form-area" className="px-4 py-8 bg-white scroll-mt-10">
             <div className="text-center mb-6">
                 <h2 className="text-2xl font-black text-gray-900">Formulir Pemesanan</h2>
@@ -77,7 +115,7 @@ export default function PromoAlburdatClient() {
                 <TrustItem 
                     icon="fa-hand-holding-dollar" color="text-orange-600"
                     title="Bisa Bayar Di Tempat (COD)" 
-                    desc="Barang sampai baru bayar ongkir. Aman, nyaman, dan bebas penipuan."
+                    desc="Barang sampai baru bayar. Aman, nyaman, dan bebas penipuan."
                 />
                 <TrustItem 
                     icon="fa-shield-halved" color="text-green-600"

@@ -4,10 +4,10 @@ import { useState } from 'react';
 
 export default function OrderForm() {
   const products = [
-    { id: 'lengkap', name: 'Paket Lengkap (Alat + Tas + Selang)', price: 299000 },
-    { id: 'alat', name: 'Alat Saja (Unit Utama)', price: 199000 },
-    { id: 'tas', name: 'Tas Gendong Pupuk Saja', price: 85000 },
-    { id: 'selang', name: 'Selang Fleksibel Saja', price: 45000 },
+    { id: 'lengkap', name: 'Paket Lengkap (Alat + Tas + Selang)', price: 238321 },
+    { id: 'alat', name: 'Alat Saja (Unit Utama)', price: 169416 },
+    { id: 'tas', name: 'Tas Gendong Pupuk Saja', price: 69544 },
+    { id: 'selang', name: 'Selang Fleksibel Saja', price: 34231 },
   ];
 
   const [form, setForm] = useState({
@@ -19,6 +19,8 @@ export default function OrderForm() {
     alamat: '',
     payment: 'COD'
   });
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const totalPrice = form.product.price * form.qty;
 
@@ -35,24 +37,53 @@ export default function OrderForm() {
     setForm({ ...form, qty: val < 1 ? 1 : val });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    const adminWA = "6289524187347"; 
+    setIsLoading(true); 
 
-    const message = `Halo Admin, saya mau pesan promo Alburdat:%0A%0A` +
-      `Produk: ${form.product.name}%0A` +
-      `Jumlah: ${form.qty} Pcs%0A` +
-      `Total Tagihan: Rp ${totalPrice.toLocaleString('id-ID')}%0A` +
-      `--------------------------------%0A` +
-      `Nama: ${form.nama}%0A` +
-      `WhatsApp: ${form.whatsapp}%0A` +
-      `Kota/Kec: ${form.kota}%0A` +
-      `Alamat: ${form.alamat}%0A` +
-      `Pembayaran: ${form.payment}%0A%0A` +
-      `Mohon segera diproses ya!`;
+    try {
+      const res = await fetch('/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          product_name: form.product.name,
+          qty: form.qty,
+          total_price: totalPrice,
+          nama: form.nama,
+          whatsapp: form.whatsapp,
+          kota: form.kota,
+          alamat: form.alamat,
+          payment: form.payment
+        }),
+      });
 
-    window.open(`https://wa.me/${adminWA}?text=${message}`, '_blank');
+      if (!res.ok) {
+        throw new Error('Terjadi kesalahan pada server');
+      }
+
+      const adminWA = "62895429640790"; 
+      const message = `Halo Admin, saya mau pesan promo Alburdat:%0A%0A` +
+        `Produk: ${form.product.name}%0A` +
+        `Jumlah: ${form.qty} Pcs%0A` +
+        `Total: Rp ${totalPrice.toLocaleString('id-ID')}%0A` +
+        `--------------------------------%0A` +
+        `Nama: ${form.nama}%0A` +
+        `WhatsApp: ${form.whatsapp}%0A` +
+        `Kota/Kec: ${form.kota}%0A` +
+        `Alamat: ${form.alamat}%0A` +
+        `Pembayaran: ${form.payment}%0A%0A` +
+        `Mohon segera diproses ya!`;
+
+      window.open(`https://wa.me/${adminWA}?text=${message}`, '_blank');
+      
+    } catch (error) {
+      alert('Maaf, pesanan gagal diproses. Silakan coba lagi atau hubungi Admin via WA langsung.');
+      console.error(error);
+    } finally {
+      setIsLoading(false); 
+    }
   };
 
   return (
@@ -87,7 +118,7 @@ export default function OrderForm() {
           </div>
         </div>
 
-        {/* 2. ATUR JUMLAH (QUANTITY) - BARU */}
+        {/* 2. ATUR JUMLAH (QUANTITY) */}
         <div>
             <label className="block text-sm font-bold text-gray-900 mb-2">Jumlah Pesanan:</label>
             <div className="flex items-center">
@@ -192,17 +223,33 @@ export default function OrderForm() {
             </div>
             
             <div className="flex justify-between items-center border-t border-orange-200 pt-3">
-                <span className="font-bold text-lg text-gray-800">Total Tagihan</span>
+                <span className="font-bold text-lg text-gray-800">Total</span>
                 <span className="font-black text-2xl text-orange-600">Rp {totalPrice.toLocaleString('id-ID')}</span>
+            </div>
+            <div className="mt-2 text-right">
+                <span className="text-xs text-red-500 italic font-medium bg-red-50 px-2 py-1 rounded">
+                    *Harga belum termasuk biaya ongkir
+                </span>
             </div>
         </div>
 
         {/* TOMBOL SUBMIT */}
         <button 
           type="submit" 
-          className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-4 rounded-lg shadow-lg text-lg uppercase tracking-wide transition-all transform hover:scale-[1.02]"
+          disabled={isLoading}
+          className={`w-full font-bold py-4 rounded-lg shadow-lg text-lg uppercase tracking-wide transition-all transform ${
+            isLoading 
+            ? 'bg-gray-400 cursor-not-allowed opacity-80' 
+            : 'bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white hover:scale-[1.02]'
+          }`}
         >
-          Beli Sekarang
+          {isLoading ? (
+            <span className="flex items-center justify-center">
+              <i className="fas fa-spinner fa-spin mr-2"></i> Memproses...
+            </span>
+          ) : (
+            'Beli Sekarang'
+          )}
         </button>
 
       </form>
