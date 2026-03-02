@@ -20,6 +20,8 @@ export async function POST(request) {
     const year = formData.get('year');
     const description = formData.get('description');
     const imageFile = formData.get('image');
+    const link = formData.get('link') || null;
+
 
     let imageUrl = null;
 
@@ -36,9 +38,8 @@ export async function POST(request) {
         imageUrl = uploadResult.secure_url;
     }
 
-    const query = `INSERT INTO achievements (title, category, year, description, image) VALUES (?, ?, ?, ?, ?)`;
-    
-    await pool.query(query, [title, category, year, description, imageUrl]);
+    const query = `INSERT INTO achievements (title, category, year, description, image, link) VALUES (?, ?, ?, ?, ?, ?)`;
+    await pool.query(query, [title, category, year, description, imageUrl, link]);    
 
     return NextResponse.json({ message: "Prestasi berhasil disimpan" });
 

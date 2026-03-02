@@ -81,11 +81,11 @@ export default function PrestasiClient({ initialData }) {
                     const url = getImgUrl(item.image);
                     if (url) setSelectedImage({ src: url, title: item.title });
                   }}
-                  className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border-t-4 border-gold hover:-translate-y-1 transition duration-300 dark:border-gray-700 cursor-pointer group"
+                  className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border-t-4 border-gold hover:-translate-y-1 transition duration-300 dark:border-gray-700 cursor-pointer group flex flex-col h-full"
                 >
                   <div className="flex items-center justify-between mb-4">
                     {item.image ? (
-                      <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-gold group-hover:scale-110 transition">
+                      <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-gold group-hover:scale-110 transition flex-shrink-0">
                         <Image
                           src={getImgUrl(item.image)}
                           alt="icon"
@@ -94,19 +94,37 @@ export default function PrestasiClient({ initialData }) {
                         />
                       </div>
                     ) : (
-                      <i className="fas fa-trophy text-3xl text-gold group-hover:scale-110 transition"></i>
+                      <i className="fas fa-trophy text-3xl text-gold group-hover:scale-110 transition flex-shrink-0"></i>
                     )}
 
-                    <span className="text-xs font-bold bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-200 px-2 py-1 rounded">
+                    <span className="text-xs font-bold bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-200 px-2 py-1 rounded ml-3">
                       {item.year}
                     </span>
                   </div>
-                  <h3 className="text-xl font-bold text-secondary dark:text-white mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm">
-                    {item.description}
-                  </p>
+                  
+                  <div className="flex-grow">
+                      <h3 className="text-xl font-bold text-secondary dark:text-white mb-2">
+                        {item.title}
+                      </h3>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                        {item.description}
+                      </p>
+                  </div>
+
+                  {/* TOMBOL BACA ARTIKEL UNTUK AWARDS */}
+                  {item.link && (
+                    <div className="pt-4 border-t border-gray-100 dark:border-gray-700 mt-auto">
+                        <a 
+                            href={item.link} 
+                            target="_blank" 
+                            rel="noreferrer"
+                            onClick={(e) => e.stopPropagation()} 
+                            className="inline-flex items-center text-primary hover:text-green-700 text-sm font-bold transition"
+                        >
+                            Baca Artikel <i className="fas fa-arrow-right ml-2 text-xs"></i>
+                        </a>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -174,6 +192,21 @@ export default function PrestasiClient({ initialData }) {
                         <p className="text-gray-600 dark:text-gray-400 mt-2">
                           {item.description}
                         </p>
+
+                        {/* TOMBOL BACA SELENGKAPNYA UNTUK RISET */}
+                        {item.link && (
+                            <div className={`mt-3 ${isLeft ? "md:text-right" : "md:text-left"}`}>
+                                <a 
+                                    href={item.link} 
+                                    target="_blank" 
+                                    rel="noreferrer"
+                                    onClick={(e) => e.stopPropagation()} 
+                                    className="inline-flex items-center text-primary hover:text-green-700 text-sm font-bold bg-green-50 dark:bg-green-900/20 px-3 py-1.5 rounded-lg transition"
+                                >
+                                    Baca Selengkapnya <i className="fas fa-external-link-alt ml-2 text-xs"></i>
+                                </a>
+                            </div>
+                        )}
 
                         {item.image && (
                           <div

@@ -9,18 +9,20 @@ export default function DashboardPage() {
     collabCount: 0,
     awardCount: 0,
     partnerCount: 0,
-    userCount: 1 
+    orderCount: 0,
+    userCount: 1
   });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const [newsRes, collabRes, awardRes, partnerRes] = await Promise.all([
+        const [newsRes, collabRes, awardRes, partnerRes, orderRes] = await Promise.all([
           fetch('/api/news').then(res => res.json()),
           fetch('/api/collab').then(res => res.json()),
           fetch('/api/achievements').then(res => res.json()),
-          fetch('/api/partners').then(res => res.json())
+          fetch('/api/partners').then(res => res.json()),
+          fetch('/api/orders').then(res => res.json())
         ]);
 
         setStats({
@@ -28,6 +30,7 @@ export default function DashboardPage() {
           collabCount: collabRes.length || 0,
           awardCount: awardRes.length || 0,
           partnerCount: partnerRes.length || 0,
+          orderCount: orderRes.length || 0,
           userCount: 1
         });
         setLoading(false);
@@ -80,6 +83,15 @@ export default function DashboardPage() {
           </div>
           <p className="text-3xl font-bold text-gray-800 dark:text-white">{loading ? '...' : stats.partnerCount}</p>
           <Link href="/admin/partners" className="text-sm text-primary mt-2 inline-block hover:underline">Kelola Mitra →</Link>
+        </div>
+
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow border border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-gray-500 dark:text-gray-400 font-medium">Order Meta Ads</h3>
+            <span className="p-2 bg-red-100 text-red-600 rounded-lg"><i className="fas fa-money-bill-wave"></i></span>
+          </div>
+          <p className="text-3xl font-bold text-gray-800 dark:text-white">{loading ? '...' : stats.orderCount}</p>
+          <Link href="/admin/orders" className="text-sm text-primary mt-2 inline-block hover:underline">Kelola Order →</Link>
         </div>
 
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow border border-gray-200 dark:border-gray-700">

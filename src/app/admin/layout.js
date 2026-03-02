@@ -91,6 +91,14 @@ export default function AdminLayout({ children }) {
             <i className="fas fa-users w-6" /> 
             <span>Partners</span>
           </Link>
+
+          <Link
+            href="/admin/orders"
+            className={`flex items-center px-4 py-3 rounded-lg transition-all font-medium ${isActive('/admin/orders')}`}
+          >
+            <i className="fas fa-money-bill-wave w-6" /> 
+            <span>Order Meta Ads</span>
+          </Link>
         </nav>
 
         <div className="p-4 border-t border-gray-200 dark:border-gray-700">
