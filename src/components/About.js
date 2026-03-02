@@ -77,7 +77,7 @@ export default function About() {
             <div className="aspect-video w-full">
               <iframe 
                 className="w-full h-full"
-                src="https://www.youtube.com/embed/Hu0EkTi24ZQ?si=Y-Fj64HIvu2tI_2F" 
+                src="https://www.youtube.com/embed/9qyG-Hb8_Po?si=jgwvQpuGoMtHvcud" 
                 title="Tani Solution Indonesia Profile"
                 frameBorder="0" 
                 loading="lazy"
