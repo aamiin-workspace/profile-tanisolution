@@ -17,7 +17,6 @@ const getPublicIdFromUrl = (url) => {
 export async function DELETE(request, { params }) {
   try {
     const { id } = await params;
-    
     const [rows] = await pool.query('SELECT image FROM achievements WHERE id = ?', [id]);
     
     if (rows.length > 0 && rows[0].image) {
@@ -42,23 +41,19 @@ export async function PUT(request, { params }) {
     const category = formData.get('category');
     const year = formData.get('year');
     
-    // Pastikan jika kosong, diubah menjadi null agar aman masuk database
     const description = formData.get('description') || null;
     const link = formData.get('link') || null; 
     
     const imageFile = formData.get('image');
 
-    // KONDISI 1: JIKA ADMIN MENGGANTI GAMBAR
     if (imageFile && typeof imageFile === 'object' && imageFile.size > 0) {
         
-        // Hapus gambar lama di Cloudinary
         const [rows] = await pool.query('SELECT image FROM achievements WHERE id = ?', [id]);
         if (rows.length > 0 && rows[0].image) {
             const oldPublicId = getPublicIdFromUrl(rows[0].image);
             if (oldPublicId) await cloudinary.uploader.destroy(oldPublicId);
         }
 
-        // Upload gambar baru
         const bytes = await imageFile.arrayBuffer();
         const buffer = Buffer.from(bytes);
         const uploadResult = await new Promise((resolve, reject) => {
@@ -69,15 +64,12 @@ export async function PUT(request, { params }) {
         });
         const newImageUrl = uploadResult.secure_url;
 
-        // Update database dengan gambar baru DAN link
         await pool.query(
             `UPDATE achievements SET title=?, category=?, year=?, description=?, image=?, link=? WHERE id=?`, 
             [title, category, year, description, newImageUrl, link, id]
         );
 
-    // KONDISI 2: JIKA ADMIN TIDAK MENGGANTI GAMBAR
     } else {
-        // Update database TANPA menyentuh gambar, tapi ikut sertakan link
         await pool.query(
             `UPDATE achievements SET title=?, category=?, year=?, description=?, link=? WHERE id=?`, 
             [title, category, year, description, link, id]
