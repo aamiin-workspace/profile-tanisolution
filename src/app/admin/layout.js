@@ -10,6 +10,7 @@ export default function AdminLayout({ children }) {
   const router = useRouter();
   
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);  
 
   const isActive = (path, exact = false) => {
     if (exact) {
@@ -23,8 +24,14 @@ export default function AdminLayout({ children }) {
   };
 
   const handleLogout = async () => {
-    await fetch('/api/auth/logout', { method: 'POST' });
-    router.replace('/login');
+    setIsLoggingOut(true); 
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+      router.replace('/login');
+    } catch (error) {
+      console.error(error);
+      setIsLoggingOut(false);
+    }
   };
 
   return (
@@ -33,9 +40,9 @@ export default function AdminLayout({ children }) {
       <AdminModal 
         isOpen={showLogoutModal}
         onClose={() => setShowLogoutModal(false)}
-        type="confirm"
-        title="Konfirmasi Logout"
-        message="Apakah Anda yakin ingin keluar dari sistem?"
+        type={isLoggingOut ? "loading" : "confirm"}
+        title={isLoggingOut ? "Keluar Sistem..." : "Konfirmasi Logout"}
+        message={isLoggingOut ? "Sedang memutuskan sesi Anda, mohon tunggu." : "Apakah Anda yakin ingin keluar dari sistem?"}
         onConfirm={handleLogout}
         confirmText="Ya, Keluar"
       />
@@ -49,7 +56,7 @@ export default function AdminLayout({ children }) {
 
         <nav className="flex-1 p-4 space-y-2">
           <p className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
-            Master Data
+            Menu Navigasi
           </p>
 
           <Link

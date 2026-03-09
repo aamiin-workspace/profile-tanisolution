@@ -21,11 +21,18 @@ export default function AdminModal({ isOpen, onClose, type, title, message, onCo
       icon: 'fa-exclamation-triangle',
       color: 'text-yellow-500',
       btnColor: 'bg-red-600 hover:bg-red-700',
-      btnText: 'Ya, Hapus Data' 
+      btnText: 'Ya, Lanjutkan' 
+    },
+    loading: {
+      icon: 'fa-spinner fa-spin', 
+      btnColor: '',
+      btnText: ''
     }
   };
 
   const currentConfig = config[type] || config.success;
+  
+  const isLoading = type === 'loading';
 
   return (
     <AnimatePresence>
@@ -36,7 +43,7 @@ export default function AdminModal({ isOpen, onClose, type, title, message, onCo
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={onClose}
+            onClick={isLoading ? undefined : onClose}
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
           />
 
@@ -57,31 +64,33 @@ export default function AdminModal({ isOpen, onClose, type, title, message, onCo
               {message}
             </p>
 
-            <div className="flex gap-3 justify-center">
-              {type === 'confirm' ? (
-                <>
+            {!isLoading && (
+              <div className="flex gap-3 justify-center">
+                {type === 'confirm' ? (
+                  <>
+                    <button 
+                      onClick={onClose}
+                      className="px-5 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                    >
+                      Batal
+                    </button>
+                    <button 
+                      onClick={() => onConfirm()} 
+                      className={`px-5 py-2.5 rounded-lg text-white font-semibold transition shadow-lg ${currentConfig.btnColor}`}
+                    >
+                      {confirmText || currentConfig.btnText}
+                    </button>
+                  </>
+                ) : (
                   <button 
                     onClick={onClose}
-                    className="px-5 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                    className={`px-6 py-2.5 rounded-lg text-white font-semibold transition shadow-lg w-full ${currentConfig.btnColor}`}
                   >
-                    Batal
+                    {currentConfig.btnText}
                   </button>
-                  <button 
-                    onClick={() => { onConfirm(); onClose(); }}
-                    className={`px-5 py-2.5 rounded-lg text-white font-semibold transition shadow-lg ${currentConfig.btnColor}`}
-                  >
-                    {confirmText || currentConfig.btnText}
-                  </button>
-                </>
-              ) : (
-                <button 
-                  onClick={onClose}
-                  className={`px-6 py-2.5 rounded-lg text-white font-semibold transition shadow-lg w-full ${currentConfig.btnColor}`}
-                >
-                  {currentConfig.btnText}
-                </button>
-              )}
-            </div>
+                )}
+              </div>
+            )}
 
           </motion.div>
         </div>

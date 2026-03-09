@@ -114,23 +114,26 @@ export default function KolaborasiManager() {
   };
 
   const handleDeleteProcess = async (id) => {
+    // 1. TAMPILKAN LOADING STATE SAAT MENGHAPUS
+    showModal("loading", "Menghapus Data...", "Mohon tunggu sebentar, data sedang dihapus.");
+
     try {
       const res = await fetch(`/api/collab/${id}`, { method: "DELETE" });
 
       if (res.ok) {
         fetchCollabs();
-        setTimeout(() => {
-          showModal(
-            "success",
-            "Berhasil Dihapus",
-            "Data kolaborasi berhasil dihapus.",
-          );
-        }, 300);
+        // 2. UBAH JADI SUKSES
+        showModal(
+          "success",
+          "Berhasil Dihapus",
+          "Data kolaborasi berhasil dihapus."
+        );
       } else {
+        // 3. UBAH JADI ERROR
         showModal(
           "error",
           "Gagal Menghapus",
-          "Terjadi kesalahan saat menghapus data.",
+          "Terjadi kesalahan saat menghapus data."
         );
       }
     } catch (error) {
@@ -166,6 +169,9 @@ export default function KolaborasiManager() {
       data.append("image", formData.image);
     }
 
+    // TAMPILKAN LOADING STATE SAAT MENYIMPAN FOTO & DATA
+    showModal("loading", "Menyimpan Data...", "Mohon tunggu sebentar, sedang memproses data & gambar.");
+
     try {
       let res;
       if (isEditing) {
@@ -183,18 +189,20 @@ export default function KolaborasiManager() {
       if (res.ok) {
         fetchCollabs();
         resetForm();
+        // UBAH JADI SUKSES
         showModal(
           "success",
           "Berhasil Disimpan",
           isEditing
             ? "Data kolaborasi berhasil diperbarui!"
-            : "Data baru berhasil ditambahkan!",
+            : "Data baru berhasil ditambahkan!"
         );
       } else {
+        // UBAH JADI ERROR
         showModal(
           "error",
           "Gagal Menyimpan",
-          "Terjadi kesalahan saat menyimpan data.",
+          "Terjadi kesalahan saat menyimpan data."
         );
       }
     } catch (error) {

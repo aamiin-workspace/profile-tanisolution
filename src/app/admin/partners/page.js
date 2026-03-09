@@ -54,22 +54,25 @@ export default function PartnerManager() {
   };
 
   const handleDeleteProcess = async (id) => {
+    // TAMPILKAN LOADING STATE SAAT MENGHAPUS
+    showModal("loading", "Menghapus Data...", "Mohon tunggu sebentar, data sedang dihapus.");
+
     try {
       const res = await fetch(`/api/partners/${id}`, { method: "DELETE" });
       if (res.ok) {
         fetchPartners();
-        setTimeout(() => {
-          showModal(
-            "success",
-            "Berhasil Dihapus",
-            "Data partner telah dihapus dari sistem.",
-          );
-        }, 300);
+        // UBAH JADI SUKSES
+        showModal(
+          "success",
+          "Berhasil Dihapus",
+          "Data partner telah dihapus dari sistem."
+        );
       } else {
+        // UBAH JADI ERROR
         showModal(
           "error",
           "Gagal Menghapus",
-          "Terjadi kesalahan saat menghapus data.",
+          "Terjadi kesalahan saat menghapus data."
         );
       }
     } catch (error) {
@@ -83,6 +86,9 @@ export default function PartnerManager() {
     data.append("name", formData.name);
     if (formData.image) data.append("image", formData.image);
 
+    // TAMPILKAN LOADING STATE SAAT MENYIMPAN
+    showModal("loading", "Menyimpan Data...", "Mohon tunggu sebentar, sedang memproses data & gambar.");
+
     try {
       const url = isEditing ? `/api/partners/${editId}` : "/api/partners";
       const method = isEditing ? "PUT" : "POST";
@@ -91,18 +97,20 @@ export default function PartnerManager() {
       if (res.ok) {
         fetchPartners();
         resetForm();
+        // UBAH JADI SUKSES
         showModal(
           "success",
           "Berhasil Disimpan",
           isEditing
             ? "Data partner berhasil diperbarui."
-            : "Partner baru berhasil ditambahkan.",
+            : "Partner baru berhasil ditambahkan."
         );
       } else {
+        // UBAH JADI ERROR
         showModal(
           "error",
           "Gagal Menyimpan",
-          "Terjadi kesalahan saat menyimpan data.",
+          "Terjadi kesalahan saat menyimpan data."
         );
       }
     } catch (e) {
@@ -160,7 +168,7 @@ export default function PartnerManager() {
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
               }
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-800 dark:text-white"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-800 dark:text-white border-gray-300 dark:border-gray-600"
               required
             />
           </div>
@@ -176,7 +184,7 @@ export default function PartnerManager() {
                 setFormData({ ...formData, image: file });
                 if (file) setPreview(URL.createObjectURL(file));
               }}
-              className="block w-full text-sm dark:text-gray-300"
+              className="block w-full text-sm dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-green-700"
               required={!isEditing}
             />
             {preview && (
@@ -191,7 +199,7 @@ export default function PartnerManager() {
             )}
           </div>
         </div>
-        <div className="mt-4 flex gap-3">
+        <div className="mt-6 flex gap-3">
           <button
             type="submit"
             className="bg-primary text-white px-6 py-2 rounded-lg font-bold hover:bg-green-700 transition shadow-lg"
@@ -226,6 +234,12 @@ export default function PartnerManager() {
                   Loading...
                 </td>
               </tr>
+            ) : list.length === 0 ? (
+              <tr>
+                <td colSpan="3" className="p-4 text-center">
+                  Belum ada data.
+                </td>
+              </tr>
             ) : (
               list.map((item) => (
                 <tr
@@ -233,7 +247,7 @@ export default function PartnerManager() {
                   className="hover:bg-gray-50 dark:hover:bg-gray-700/50"
                 >
                   <td className="p-3">
-                    <div className="relative w-16 h-10 bg-white rounded border flex items-center justify-center overflow-hidden">
+                    <div className="relative w-16 h-10 bg-white rounded border border-gray-200 dark:border-gray-600 flex items-center justify-center overflow-hidden">
                       <Image
                         src={item.image || "/placeholder.jpg"}
                         alt="logo"
@@ -243,16 +257,16 @@ export default function PartnerManager() {
                     </div>
                   </td>
                   <td className="p-3 font-bold">{item.name}</td>
-                  <td className="p-3 text-center space-x-3">
+                  <td className="p-3 text-center space-x-3 whitespace-nowrap">
                     <button
                       onClick={() => handleEdit(item)}
-                      className="text-yellow-500 font-bold hover:text-yellow-600"
+                      className="text-yellow-600 font-bold hover:text-yellow-800"
                     >
                       <i className="fas fa-edit"></i> Edit
                     </button>
                     <button
                       onClick={() => confirmDelete(item.id)}
-                      className="text-red-500 font-bold hover:text-red-600"
+                      className="text-red-600 font-bold hover:text-red-800"
                     >
                       <i className="fas fa-trash"></i> Hapus
                     </button>

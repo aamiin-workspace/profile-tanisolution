@@ -64,6 +64,9 @@ export default function BeritaManager() {
   };
 
   const handleDeleteProcess = async (id) => {
+    // TAMPILKAN LOADING STATE SAAT MENGHAPUS
+    showModal("loading", "Menghapus Berita...", "Mohon tunggu sebentar, berita sedang dihapus.");
+
     try {
       const res = await fetch(`/api/news/${id}`, {
         method: "DELETE",
@@ -71,14 +74,14 @@ export default function BeritaManager() {
 
       if (res.ok) {
         fetchNews();
-        setTimeout(() => {
-          showModal(
-            "success",
-            "Berhasil Dihapus",
-            "Berita berhasil dihapus dari sistem.",
-          );
-        }, 300);
+        // UBAH JADI SUKSES
+        showModal(
+          "success",
+          "Berhasil Dihapus",
+          "Berita berhasil dihapus dari sistem.",
+        );
       } else {
+        // UBAH JADI ERROR
         showModal(
           "error",
           "Gagal Menghapus",
@@ -160,6 +163,9 @@ export default function BeritaManager() {
       data.append("image", formData.image);
     }
 
+    // TAMPILKAN LOADING STATE SAAT MENYIMPAN (TERUTAMA SAAT UPLOAD GAMBAR)
+    showModal("loading", "Menyimpan Berita...", "Mohon tunggu sebentar, sedang memproses data & gambar.");
+
     try {
       let res;
       if (isEditing) {
@@ -177,6 +183,7 @@ export default function BeritaManager() {
       if (res.ok) {
         fetchNews();
         resetForm();
+        // UBAH JADI SUKSES
         showModal(
           "success",
           "Berhasil Disimpan",
@@ -186,6 +193,7 @@ export default function BeritaManager() {
         );
       } else {
         const err = await res.json();
+        // UBAH JADI ERROR
         showModal(
           "error",
           "Gagal Menyimpan",
@@ -249,13 +257,13 @@ export default function BeritaManager() {
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
               {loading ? (
                 <tr>
-                  <td colSpan="5" className="px-6 py-4 text-center">
+                  <td colSpan="6" className="px-6 py-4 text-center">
                     Loading...
                   </td>
                 </tr>
               ) : newsList.length === 0 ? (
                 <tr>
-                  <td colSpan="5" className="px-6 py-4 text-center">
+                  <td colSpan="6" className="px-6 py-4 text-center">
                     Belum ada berita.
                   </td>
                 </tr>
@@ -309,7 +317,7 @@ export default function BeritaManager() {
                     <td className="px-6 py-4">
                       {new Date(item.date).toLocaleDateString()}
                     </td>
-                    <td className="px-6 py-4 text-center space-x-2">
+                    <td className="px-6 py-4 text-center space-x-2 whitespace-nowrap">
                       <button
                         onClick={() => handleOpenEdit(item)}
                         className="text-yellow-600 hover:text-yellow-800 dark:text-yellow-400 font-bold"
@@ -318,7 +326,7 @@ export default function BeritaManager() {
                       </button>
                       <button
                         onClick={() => confirmDelete(item.id)}
-                        className="text-red-600 hover:text-red-800 dark:text-red-400 font-bold"
+                        className="text-red-600 hover:text-red-800 dark:text-red-400 font-bold ml-2"
                       >
                         <i className="fas fa-trash"></i> Hapus
                       </button>

@@ -54,12 +54,17 @@ export default function AchievementManager() {
   };
 
   const handleDeleteProcess = async (id) => {
+    // TAMPILKAN LOADING STATE SAAT MENGHAPUS
+    showModal("loading", "Menghapus Data...", "Mohon tunggu sebentar, data sedang dihapus.");
+
     try {
       const res = await fetch(`/api/achievements/${id}`, { method: "DELETE" });
       if (res.ok) {
         fetchData();
-        setTimeout(() => showModal("success", "Berhasil Dihapus", "Data telah dihapus dari sistem."), 300);
+        // UBAH JADI SUKSES
+        showModal("success", "Berhasil Dihapus", "Data telah dihapus dari sistem.");
       } else {
+        // UBAH JADI ERROR
         showModal("error", "Gagal Menghapus", "Terjadi kesalahan saat menghapus data.");
       }
     } catch (error) {
@@ -78,6 +83,9 @@ export default function AchievementManager() {
 
     if (formData.image) data.append("image", formData.image);
 
+    // TAMPILKAN LOADING STATE SAAT MENYIMPAN (UPLOAD BISA MAKAN WAKTU LAMA)
+    showModal("loading", "Menyimpan Data...", "Mohon tunggu sebentar, sedang memproses data & gambar.");
+
     try {
       let res;
       if (isEditing) {
@@ -89,8 +97,10 @@ export default function AchievementManager() {
       if (res.ok) {
         fetchData();
         resetForm();
+        // UBAH JADI SUKSES
         showModal("success", "Berhasil Disimpan", isEditing ? "Data berhasil diperbarui!" : "Data baru berhasil ditambahkan!");
       } else {
+        // UBAH JADI ERROR
         showModal("error", "Gagal Menyimpan", "Terjadi kesalahan pada server.");
       }
     } catch (error) {
@@ -175,7 +185,6 @@ export default function AchievementManager() {
                     <td className="p-3">{item.year}</td>
                     <td className="p-3 font-bold">{item.title}</td>
                     
-                    {/* KOLOM GAMBAR DENGAN PLACEHOLDER JIKA KOSONG */}
                     <td className="p-3">
                       <div className="relative w-12 h-12">
                         {item.image ? (
