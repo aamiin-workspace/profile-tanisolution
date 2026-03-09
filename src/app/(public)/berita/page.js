@@ -1,7 +1,7 @@
 import pool from '@/lib/db';
 import BeritaClient from '@/components/views/BeritaClient';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export const metadata = {
   title: 'Berita & Artikel | Tani Solution',

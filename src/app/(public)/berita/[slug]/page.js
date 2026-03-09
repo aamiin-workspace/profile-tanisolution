@@ -2,6 +2,8 @@ import pool from '@/lib/db';
 import { notFound } from 'next/navigation';
 import DetailBeritaClient from '@/components/views/DetailBeritaClient';
 
+export const revalidate = 60;
+
 async function getNewsDetail(slug) {
   try {
     const [rows] = await pool.query('SELECT * FROM news WHERE slug = ?', [slug]);

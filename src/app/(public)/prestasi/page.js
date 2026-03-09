@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import pool from '@/lib/db';
 import PrestasiClient from '@/components/views/PrestasiClient';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export const metadata = {
   title: 'Prestasi & Riset | Tani Solution Indonesia',

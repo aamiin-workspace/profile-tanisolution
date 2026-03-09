@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import pool from '@/lib/db';
 import KolaborasiClient from '@/components/views/KolaborasiClient';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export const metadata = {
   title: 'Kolaborasi | Magang, Riset & Kunjungan Tani Solution',

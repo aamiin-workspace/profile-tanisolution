@@ -5,7 +5,7 @@ import Partners from '@/components/Partners';
 import Contact from '@/components/Contact';
 import pool from '@/lib/db';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export const metadata = {
   title: 'Tani Solution Indonesia | Inovasi Alat Pertanian Modern',
