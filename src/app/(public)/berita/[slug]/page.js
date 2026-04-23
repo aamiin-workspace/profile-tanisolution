@@ -1,6 +1,7 @@
 import pool from '@/lib/db';
 import { notFound } from 'next/navigation';
 import DetailBeritaClient from '@/components/views/DetailBeritaClient';
+import BreadcrumbJsonLd from '@/components/utils/BreadcrumbJsonLd';
 
 export const revalidate = 60;
 
@@ -112,12 +113,19 @@ export default async function DetailBeritaPage({ params }) {
     'description': news.excerpt
   };
 
+  const breadcrumbItems = [
+    { name: "Beranda", url: "https://www.tanisolution.id/" },
+    { name: "Berita", url: "https://www.tanisolution.id/berita" },
+    { name: news.title, url: `https://www.tanisolution.id/berita/${slug}` }
+  ];
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />     
+      />
+      <BreadcrumbJsonLd items={breadcrumbItems} />
       <DetailBeritaClient news={news} popularNews={popularNews} />
     </>
   );

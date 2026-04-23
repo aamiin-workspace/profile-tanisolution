@@ -1,4 +1,5 @@
 import KreasolusiClient from '@/components/views/KreasolusiClient';
+import BreadcrumbJsonLd from '@/components/utils/BreadcrumbJsonLd'; 
 
 export const metadata = {
   title: 'Layanan Studio KreaSolusi | Tani Solution',
@@ -6,5 +7,15 @@ export const metadata = {
 };
 
 export default function KreasolusiPage() {
-  return <KreasolusiClient />;
+  const breadcrumbItems = [
+    { name: "Beranda", url: "https://www.tanisolution.id/" }, 
+    { name: "Kreasolusi", url: "https://www.tanisolution.id/kreasolusi" }
+  ];
+
+  return (
+    <>
+      <BreadcrumbJsonLd items={breadcrumbItems} />
+      <KreasolusiClient />
+    </>
+  );
 }

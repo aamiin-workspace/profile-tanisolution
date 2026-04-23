@@ -1,5 +1,6 @@
 import pool from '@/lib/db';
 import BeritaClient from '@/components/views/BeritaClient';
+import BreadcrumbJsonLd from '@/components/utils/BreadcrumbJsonLd'; // tambahkan import
 
 export const revalidate = 60;
 
@@ -26,5 +27,16 @@ async function getNewsData() {
 
 export default async function BeritaPage() {
   const news = await getNewsData();
-  return <BeritaClient initialNews={news} />;
+
+  const breadcrumbItems = [
+    { name: "Beranda", url: "https://www.tanisolution.id/" },
+    { name: "Berita", url: "https://www.tanisolution.id/berita" }
+  ];
+
+  return (
+    <>
+      <BreadcrumbJsonLd items={breadcrumbItems} />
+      <BeritaClient initialNews={news} />
+    </>
+  );
 }

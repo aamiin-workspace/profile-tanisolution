@@ -1,4 +1,5 @@
 import TeknosolusiClient from '@/components/views/TeknosolusiClient';
+import BreadcrumbJsonLd from '@/components/utils/BreadcrumbJsonLd'; // tambahkan import
 
 export const metadata = {
   title: 'Teknosolusi | Inovasi Alat Pertanian Alburdat',
@@ -12,8 +13,14 @@ export const metadata = {
 };
 
 export default function TeknosolusiPage() {
+  const breadcrumbItems = [
+    { name: "Beranda", url: "https://www.tanisolution.id/" },
+    { name: "Teknosolusi", url: "https://www.tanisolution.id/teknosolusi" }
+  ];
+
   return (
     <>
+      <BreadcrumbJsonLd items={breadcrumbItems} />
       <TeknosolusiClient />
     </>
   );

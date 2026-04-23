@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import pool from '@/lib/db';
 import PrestasiClient from '@/components/views/PrestasiClient';
+import BreadcrumbJsonLd from '@/components/utils/BreadcrumbJsonLd';
 
 export const revalidate = 60;
 
@@ -29,9 +30,17 @@ function LoadingState() {
 export default async function PrestasiPage() {
   const data = await getAchievements();
 
+  const breadcrumbItems = [
+    { name: "Beranda", url: "https://www.tanisolution.id/" },
+    { name: "Prestasi", url: "https://www.tanisolution.id/prestasi" }
+  ];
+
   return (
-    <Suspense fallback={<LoadingState />}>
+    <>
+      <BreadcrumbJsonLd items={breadcrumbItems} />
+      <Suspense fallback={<LoadingState />}>
         <PrestasiClient initialData={data} />
-    </Suspense>
+      </Suspense>
+    </>
   );
 }

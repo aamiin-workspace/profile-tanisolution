@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import pool from '@/lib/db';
 import KolaborasiClient from '@/components/views/KolaborasiClient';
+import BreadcrumbJsonLd from '@/components/utils/BreadcrumbJsonLd';
 
 export const revalidate = 60;
 
@@ -35,9 +36,17 @@ function LoadingState() {
 export default async function KolaborasiPage() {
   const galleryData = await getCollaborations();
 
+  const breadcrumbItems = [
+    { name: "Beranda", url: "https://www.tanisolution.id/" }, 
+    { name: "Kolaborasi", url: "https://www.tanisolution.id/kolaborasi" }
+  ];
+
   return (
-    <Suspense fallback={<LoadingState />}>
+    <>
+      <BreadcrumbJsonLd items={breadcrumbItems} />
+      <Suspense fallback={<LoadingState />}>
         <KolaborasiClient initialGalleryData={galleryData} />
-    </Suspense>
+      </Suspense>
+    </>
   );
 }

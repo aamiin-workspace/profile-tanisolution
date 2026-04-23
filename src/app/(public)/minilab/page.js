@@ -1,4 +1,5 @@
 import MinilabClient from '@/components/views/MinilabClient';
+import BreadcrumbJsonLd from '@/components/utils/BreadcrumbJsonLd';
 
 export const metadata = {
   title: 'Mini Lab Teknologi Pertanian | Tani Solution',
@@ -6,5 +7,15 @@ export const metadata = {
 };
 
 export default function MinilabPage() {
-  return <MinilabClient />;
+  const breadcrumbItems = [
+    { name: "Beranda", url: "https://www.tanisolution.id/" }, 
+    { name: "Minilab", url: "https://www.tanisolution.id/minilab" }
+  ];
+
+  return (
+    <>
+      <BreadcrumbJsonLd items={breadcrumbItems} />
+      <MinilabClient />
+    </>
+  );
 }

@@ -1,4 +1,5 @@
 import EdusolusiClient from '@/components/views/EdusolusiClient';
+import BreadcrumbJsonLd from '@/components/utils/BreadcrumbJsonLd'; // pastikan path ini sesuai
 
 export const metadata = {
   title: 'Edusolusi | Divisi Sosial Tani Solution',
@@ -10,5 +11,15 @@ export const metadata = {
 };
 
 export default function EdusolusiPage() {
-  return <EdusolusiClient />;
+  const breadcrumbItems = [
+    { name: "Beranda", url: "https://www.tanisolution.id/" },   // ganti domain
+    { name: "Edusolusi", url: "https://www.tanisolution.id/edusolusi" }
+  ];
+
+  return (
+    <>
+      <BreadcrumbJsonLd items={breadcrumbItems} />
+      <EdusolusiClient />
+    </>
+  );
 }
